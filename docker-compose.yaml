@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  # DATABASE
+  services:
+  scholar_hive_db:
+    image: mariadb:latest
+    container_name: scholar_hive_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: scholar_hive_db
+      MYSQL_USER: scholar_hive_user
+      MYSQL_PASSWORD: scholar_hive_password
+    ports:
+      - "20505:3306"
+    volumes:
+      - scholar_hive_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - scholar_hive_network
+
+volumes:
+  scholar_hive_data:
+    name: scholar_hive_data
+
+networks:
+  scholar_hive_network:
+    name: scholar_hive_network
+    driver: bridge
