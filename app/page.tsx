@@ -1,13 +1,9 @@
-import Link from 'next/link';
+import { auth } from './auth';
 
-import { Button } from '@/components/ui/button';
-
-const HomePage = () => {
-  return (
-    <Link href="/dashboard">
-      <Button>Go to dashboard</Button>
-    </Link>
-  );
+const HomePage = async () => {
+  const session = await auth();
+  console.log('session', session?.user);
+  return <div>{session?.user?.name}</div>;
 };
 
 export default HomePage;

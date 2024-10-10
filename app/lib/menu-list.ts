@@ -16,6 +16,8 @@ import {
   Users,
 } from 'lucide-react';
 
+import { USER_ROLE } from './data';
+
 type Submenu = {
   href: string;
   label: string;
@@ -43,9 +45,9 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: 'Menu',
       menus: [
         {
-          href: '/',
+          href: `/${USER_ROLE}`,
           label: 'Home',
-          active: pathname === '/',
+          active: pathname === `/${USER_ROLE}`,
           icon: Home,
           submenus: [],
           visible: ['admin', 'teacher', 'student', 'parent'],

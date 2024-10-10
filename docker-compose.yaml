@@ -2,21 +2,19 @@ version: '3.9'
 
 services:
   # DATABASE
-  services:
   scholar_hive_db:
-    image: mariadb:latest
+    image: postgres:latest
     container_name: scholar_hive_db
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: scholar_hive_db
-      MYSQL_USER: scholar_hive_user
-      MYSQL_PASSWORD: scholar_hive_password
+      POSTGRES_DB: scholar_hive_db
+      POSTGRES_USER: scholar_hive_user
+      POSTGRES_PASSWORD: scholar_hive_password
     ports:
-      - "20505:3306"
+      - "20505:5432"
     volumes:
-      - scholar_hive_data:/var/lib/mysql
+      - scholar_hive_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      test: ["CMD-SHELL", "pg_isready -U scholar_hive_user -d scholar_hive_db"]
       interval: 10s
       timeout: 5s
       retries: 5

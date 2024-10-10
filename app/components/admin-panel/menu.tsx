@@ -4,6 +4,7 @@ import { Ellipsis, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { logout } from '@/actions/auth';
 import { CollapseMenuButton } from '@/components/admin-panel/collapse-menu-button';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -98,7 +99,7 @@ export function Menu({ isOpen, userRole }: MenuProps) {
             <TooltipProvider disableHoverableContent>
               <Tooltip delayDuration={100}>
                 <TooltipTrigger asChild>
-                  <Button onClick={() => {}} variant="outline" className="w-full justify-center h-10 mt-5">
+                  <Button onClick={() => logout()} variant="outline" className="w-full justify-center h-10 mt-5">
                     <span className={cn(isOpen === false ? '' : 'mr-4')}>
                       <LogOut size={18} />
                     </span>

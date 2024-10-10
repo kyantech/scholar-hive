@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Menu } from '@/components/admin-panel/menu';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from '@/components/ui/sheet';
+import { USER_ROLE } from '@/lib/data';
 
 export function SheetMenu() {
   return (
@@ -21,7 +22,7 @@ export function SheetMenu() {
             </div>
           </Button>
         </SheetHeader>
-        <Menu isOpen />
+        <Menu isOpen userRole={USER_ROLE} />
       </SheetContent>
     </Sheet>
   );

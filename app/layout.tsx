@@ -1,5 +1,3 @@
-import { ptBR } from '@clerk/localizations';
-import { ClerkProvider } from '@clerk/nextjs';
 import { Metadata } from 'next';
 
 import './globals.css';
@@ -16,14 +14,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider localization={ptBR}>
-      <html lang="en" suppressHydrationWarning>
-        <body className={`${inter.className} bg-zinc-50 dark:bg-[#111318]`}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <main className="min-h-screen">{children}</main>
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-zinc-50 dark:bg-[#111318]`}>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <main className="min-h-screen">{children}</main>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }
