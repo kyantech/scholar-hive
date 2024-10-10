@@ -114,7 +114,7 @@ export default function ClassesCardTable() {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:border-input">
       <CardHeader>
         <CardTitle className="text-xl font-bold flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <span>All Classes</span>

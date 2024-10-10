@@ -3,37 +3,37 @@
 import { ChevronLeft, ChevronRight, Edit, FileDown, Filter, Plus, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { teachersData, USER_ROLE } from '@/lib/data';
+import { resultsData } from '@/lib/data';
 
-export default function TeachersCardTable() {
-  const [filteredTeachers, setFilteredTeachers] = useState(teachersData);
+export default function ResultsCardTable() {
+  const [filteredResults, setFilteredResults] = useState(resultsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const teachersPerPage = 10;
+  const resultsPerPage = 10;
 
   useEffect(() => {
-    const results = teachersData.filter(
-      (teacher) =>
-        teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.subjects.some((subject) => subject.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        teacher.classes.some((cls) => cls.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        teacher.address.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = resultsData.filter(
+      (result) =>
+        result.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        result.class.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        result.teacher.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        result.student.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        result.date.includes(searchTerm) ||
+        result.score.toString().includes(searchTerm)
     );
-    setFilteredTeachers(results);
+    setFilteredResults(results);
     setCurrentPage(1);
   }, [searchTerm]);
 
-  const indexOfLastTeacher = currentPage * teachersPerPage;
-  const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
-  const currentTeachers = filteredTeachers.slice(indexOfFirstTeacher, indexOfLastTeacher);
+  const indexOfLastResult = currentPage * resultsPerPage;
+  const indexOfFirstResult = indexOfLastResult - resultsPerPage;
+  const currentResults = filteredResults.slice(indexOfFirstResult, indexOfLastResult);
 
-  const totalPages = Math.ceil(filteredTeachers.length / teachersPerPage);
+  const totalPages = Math.ceil(filteredResults.length / resultsPerPage);
 
   const handlePrevious = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
@@ -47,12 +47,11 @@ export default function TeachersCardTable() {
     <Card className="w-full dark:border-input">
       <CardHeader>
         <CardTitle className="text-xl font-bold flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <span>All Teachers</span>
+          <span>All Results</span>
           <div className="flex flex-wrap items-center gap-2">
             <Input
               className="w-full sm:w-64 font-normal"
-              placeholder="Search teachers..."
-              type="search"
+              placeholder="Search results..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -62,11 +61,9 @@ export default function TeachersCardTable() {
             <Button variant="outline" size="icon">
               <FileDown className="h-4 w-4" />
             </Button>
-            {USER_ROLE === 'admin' && (
-              <Button size="icon">
-                <Plus className="h-4 w-4" />
-              </Button>
-            )}
+            <Button size="icon">
+              <Plus className="h-4 w-4" />
+            </Button>
           </div>
         </CardTitle>
       </CardHeader>
@@ -75,40 +72,24 @@ export default function TeachersCardTable() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Info</TableHead>
-                <TableHead>Teacher ID</TableHead>
-                <TableHead>Subjects</TableHead>
-                <TableHead>Classes</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Address</TableHead>
+                <TableHead>Subject</TableHead>
+                <TableHead>Class</TableHead>
+                <TableHead>Teacher</TableHead>
+                <TableHead>Student</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Score</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {currentTeachers.map((teacher) => (
-                <TableRow key={teacher.id}>
-                  <TableCell>
-                    <div className="flex items-center space-x-3">
-                      <Avatar>
-                        <AvatarImage src={teacher.photo} alt={teacher.name} />
-                        <AvatarFallback>
-                          {teacher.name
-                            .split(' ')
-                            .map((n) => n[0])
-                            .join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">{teacher.name}</div>
-                        <div className="text-sm text-gray-500">{teacher.email}</div>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{teacher.teacherId}</TableCell>
-                  <TableCell>{teacher.subjects.join(', ')}</TableCell>
-                  <TableCell>{teacher.classes.join(', ')}</TableCell>
-                  <TableCell>{teacher.phone}</TableCell>
-                  <TableCell>{teacher.address}</TableCell>
+              {currentResults.map((result) => (
+                <TableRow key={result.id}>
+                  <TableCell className="font-medium">{result.subject}</TableCell>
+                  <TableCell>{result.class}</TableCell>
+                  <TableCell>{result.teacher}</TableCell>
+                  <TableCell>{result.student}</TableCell>
+                  <TableCell>{result.date}</TableCell>
+                  <TableCell>{result.score}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button variant="ghost" size="icon">
@@ -126,8 +107,8 @@ export default function TeachersCardTable() {
         </div>
         <div className="flex items-center justify-between space-x-2 py-4">
           <div className="text-sm text-gray-500">
-            Showing {indexOfFirstTeacher + 1}-{Math.min(indexOfLastTeacher, filteredTeachers.length)} of{' '}
-            {filteredTeachers.length}
+            Showing {indexOfFirstResult + 1}-{Math.min(indexOfLastResult, filteredResults.length)} of{' '}
+            {filteredResults.length}
           </div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" onClick={handlePrevious} disabled={currentPage === 1}>

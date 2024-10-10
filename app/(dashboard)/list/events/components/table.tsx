@@ -3,37 +3,36 @@
 import { ChevronLeft, ChevronRight, Edit, FileDown, Filter, Plus, Trash2 } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { teachersData, USER_ROLE } from '@/lib/data';
+import { eventsData } from '@/lib/data';
 
-export default function TeachersCardTable() {
-  const [filteredTeachers, setFilteredTeachers] = useState(teachersData);
+export default function EventsCardTable() {
+  const [filteredEvents, setFilteredEvents] = useState(eventsData);
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const teachersPerPage = 10;
+  const eventsPerPage = 10;
 
   useEffect(() => {
-    const results = teachersData.filter(
-      (teacher) =>
-        teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        teacher.subjects.some((subject) => subject.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        teacher.classes.some((cls) => cls.toLowerCase().includes(searchTerm.toLowerCase())) ||
-        teacher.address.toLowerCase().includes(searchTerm.toLowerCase())
+    const results = eventsData.filter(
+      (event) =>
+        event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.class.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.date.includes(searchTerm) ||
+        event.startTime.includes(searchTerm) ||
+        event.endTime.includes(searchTerm)
     );
-    setFilteredTeachers(results);
+    setFilteredEvents(results);
     setCurrentPage(1);
   }, [searchTerm]);
 
-  const indexOfLastTeacher = currentPage * teachersPerPage;
-  const indexOfFirstTeacher = indexOfLastTeacher - teachersPerPage;
-  const currentTeachers = filteredTeachers.slice(indexOfFirstTeacher, indexOfLastTeacher);
+  const indexOfLastEvent = currentPage * eventsPerPage;
+  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+  const currentEvents = filteredEvents.slice(indexOfFirstEvent, indexOfLastEvent);
 
-  const totalPages = Math.ceil(filteredTeachers.length / teachersPerPage);
+  const totalPages = Math.ceil(filteredEvents.length / eventsPerPage);
 
   const handlePrevious = () => {
     setCurrentPage((prev) => Math.max(prev - 1, 1));
@@ -47,12 +46,11 @@ export default function TeachersCardTable() {
     <Card className="w-full dark:border-input">
       <CardHeader>
         <CardTitle className="text-xl font-bold flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <span>All Teachers</span>
+          <span>All Events</span>
           <div className="flex flex-wrap items-center gap-2">
             <Input
               className="w-full sm:w-64 font-normal"
-              placeholder="Search teachers..."
-              type="search"
+              placeholder="Search events..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -62,11 +60,9 @@ export default function TeachersCardTable() {
             <Button variant="outline" size="icon">
               <FileDown className="h-4 w-4" />
             </Button>
-            {USER_ROLE === 'admin' && (
-              <Button size="icon">
-                <Plus className="h-4 w-4" />
-              </Button>
-            )}
+            <Button size="icon">
+              <Plus className="h-4 w-4" />
+            </Button>
           </div>
         </CardTitle>
       </CardHeader>
@@ -75,40 +71,22 @@ export default function TeachersCardTable() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Info</TableHead>
-                <TableHead>Teacher ID</TableHead>
-                <TableHead>Subjects</TableHead>
-                <TableHead>Classes</TableHead>
-                <TableHead>Phone</TableHead>
-                <TableHead>Address</TableHead>
+                <TableHead>Title</TableHead>
+                <TableHead>Class</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Start Time</TableHead>
+                <TableHead>End Time</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {currentTeachers.map((teacher) => (
-                <TableRow key={teacher.id}>
-                  <TableCell>
-                    <div className="flex items-center space-x-3">
-                      <Avatar>
-                        <AvatarImage src={teacher.photo} alt={teacher.name} />
-                        <AvatarFallback>
-                          {teacher.name
-                            .split(' ')
-                            .map((n) => n[0])
-                            .join('')}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="font-medium">{teacher.name}</div>
-                        <div className="text-sm text-gray-500">{teacher.email}</div>
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>{teacher.teacherId}</TableCell>
-                  <TableCell>{teacher.subjects.join(', ')}</TableCell>
-                  <TableCell>{teacher.classes.join(', ')}</TableCell>
-                  <TableCell>{teacher.phone}</TableCell>
-                  <TableCell>{teacher.address}</TableCell>
+              {currentEvents.map((event) => (
+                <TableRow key={event.id}>
+                  <TableCell className="font-medium">{event.title}</TableCell>
+                  <TableCell>{event.class}</TableCell>
+                  <TableCell>{event.date}</TableCell>
+                  <TableCell>{event.startTime}</TableCell>
+                  <TableCell>{event.endTime}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
                       <Button variant="ghost" size="icon">
@@ -126,8 +104,8 @@ export default function TeachersCardTable() {
         </div>
         <div className="flex items-center justify-between space-x-2 py-4">
           <div className="text-sm text-gray-500">
-            Showing {indexOfFirstTeacher + 1}-{Math.min(indexOfLastTeacher, filteredTeachers.length)} of{' '}
-            {filteredTeachers.length}
+            Showing {indexOfFirstEvent + 1}-{Math.min(indexOfLastEvent, filteredEvents.length)} of{' '}
+            {filteredEvents.length}
           </div>
           <div className="flex space-x-2">
             <Button variant="outline" size="sm" onClick={handlePrevious} disabled={currentPage === 1}>

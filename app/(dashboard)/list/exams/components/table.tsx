@@ -7,80 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { USER_ROLE } from '@/lib/data';
-
-const examsData = [
-  {
-    id: 1,
-    subject: 'Math',
-    class: '1A',
-    teacher: 'Martha Morris',
-    date: '2025-01-01',
-  },
-  {
-    id: 2,
-    subject: 'English',
-    class: '2A',
-    teacher: 'Randall Garcia',
-    date: '2025-01-01',
-  },
-  {
-    id: 3,
-    subject: 'Science',
-    class: '3A',
-    teacher: 'Myrtie Scott',
-    date: '2025-01-01',
-  },
-  {
-    id: 4,
-    subject: 'Social Studies',
-    class: '1B',
-    teacher: 'Alvin Swanson',
-    date: '2025-01-01',
-  },
-  {
-    id: 5,
-    subject: 'Art',
-    class: '4A',
-    teacher: 'Mabelle Wallace',
-    date: '2025-01-01',
-  },
-  {
-    id: 6,
-    subject: 'Music',
-    class: '5A',
-    teacher: 'Dale Thompson',
-    date: '2025-01-01',
-  },
-  {
-    id: 7,
-    subject: 'History',
-    class: '6A',
-    teacher: 'Allie Conner',
-    date: '2025-01-01',
-  },
-  {
-    id: 8,
-    subject: 'Geography',
-    class: '6B',
-    teacher: 'Hunter Fuller',
-    date: '2025-01-01',
-  },
-  {
-    id: 9,
-    subject: 'Physics',
-    class: '7A',
-    teacher: 'Lois Lindsey',
-    date: '2025-01-01',
-  },
-  {
-    id: 10,
-    subject: 'Chemistry',
-    class: '8A',
-    teacher: 'Vera Soto',
-    date: '2025-01-01',
-  },
-];
+import { examsData, USER_ROLE } from '@/lib/data';
 
 export default function ExamsCardTable() {
   const [filteredExams, setFilteredExams] = useState(examsData);
@@ -115,7 +42,7 @@ export default function ExamsCardTable() {
   };
 
   return (
-    <Card className="w-full">
+    <Card className="w-full dark:border-input">
       <CardHeader>
         <CardTitle className="text-xl font-bold flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <span>All Exams</span>
