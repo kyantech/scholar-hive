@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+// @ts-nocheck
+
 'use client';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';

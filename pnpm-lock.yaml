@@ -101,6 +101,9 @@ dependencies:
   bcrypt:
     specifier: 5.1.1
     version: 5.1.1
+  bcryptjs:
+    specifier: 2.4.3
+    version: 2.4.3
   class-variance-authority:
     specifier: 0.7.0
     version: 0.7.0
@@ -187,6 +190,9 @@ devDependencies:
   '@types/bcrypt':
     specifier: 5.0.2
     version: 5.0.2
+  '@types/bcryptjs':
+    specifier: 2.4.6
+    version: 2.4.6
   '@types/node':
     specifier: 22.5.5
     version: 22.5.5
@@ -2468,6 +2474,10 @@ packages:
       '@types/node': 22.5.5
     dev: true
 
+  /@types/bcryptjs@2.4.6:
+    resolution: {integrity: sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==}
+    dev: true
+
   /@types/conventional-commits-parser@5.0.0:
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
     dependencies:
@@ -2960,6 +2970,10 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    dev: false
+
+  /bcryptjs@2.4.3:
+    resolution: {integrity: sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==}
     dev: false
 
   /binary-extensions@2.3.0:

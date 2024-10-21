@@ -15,8 +15,8 @@
     "build": "next build",
     "start": "next start",
     "type-check": "tsc --noEmit",
-    "lint": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
-    "format": "prettier --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\" --write",
+    "lint": "eslint --ignore-path .gitignore \"**/*.+(ts|js|tsx)\"",
+    "format": "prettier --ignore-path .gitignore \"**/*.+(ts|js|tsx)\" --write",
     "postinstall": "husky"
   },
   "lint-staged": {
@@ -58,6 +58,7 @@
     "@radix-ui/react-toggle-group": "1.1.0",
     "@radix-ui/react-tooltip": "1.1.2",
     "bcrypt": "5.1.1",
+    "bcryptjs": "2.4.3",
     "class-variance-authority": "0.7.0",
     "clsx": "2.1.1",
     "cmdk": "1.0.0",
@@ -88,6 +89,7 @@
     "@commitlint/config-conventional": "19.5.0",
     "@ianvs/prettier-plugin-sort-imports": "4.3.1",
     "@types/bcrypt": "5.0.2",
+    "@types/bcryptjs": "2.4.6",
     "@types/node": "22.5.5",
     "@types/react": "18.3.8",
     "@types/react-big-calendar": "1.8.12",

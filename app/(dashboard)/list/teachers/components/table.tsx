@@ -1,6 +1,7 @@
 'use client';
 
-import { ChevronLeft, ChevronRight, Edit, FileDown, Filter, Plus, Trash2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Edit, Eye, FileDown, Filter, Plus, Trash2 } from 'lucide-react';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -111,6 +112,11 @@ export default function TeachersCardTable() {
                   <TableCell>{teacher.address}</TableCell>
                   <TableCell>
                     <div className="flex space-x-2">
+                      <Button variant="ghost" size="icon">
+                        <Link href={`teachers/${teacher.id}`}>
+                          <Eye className="h-4 w-4" />
+                        </Link>
+                      </Button>
                       <Button variant="ghost" size="icon">
                         <Edit className="h-4 w-4" />
                       </Button>
