@@ -37,9 +37,9 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, value, label }) => (
   </Card>
 );
 
-const TeacherDetailsPage: React.FC = () => {
+const StudentDetailsPage: React.FC = () => {
   const contactInfo = [
-    { icon: Syringe, text: 'A+' },
+    { icon: Syringe, text: 'O+' },
     { icon: Calendar, text: 'January 1995' },
     { icon: Mail, text: 'sgubocose@gmail.com' },
     { icon: Phone, text: '+55 41 99573362' },
@@ -47,17 +47,17 @@ const TeacherDetailsPage: React.FC = () => {
 
   const stats = [
     { icon: CalendarPlus, value: '95%', label: 'Attendance' },
-    { icon: LibraryBig, value: '2', label: 'Branches' },
-    { icon: BookMarked, value: '6', label: 'Lessons' },
-    { icon: School, value: '3', label: 'Classes' },
+    { icon: LibraryBig, value: '6th', label: 'Grade' },
+    { icon: BookMarked, value: '18', label: 'Lessons' },
+    { icon: School, value: '3A', label: 'Class' },
   ];
 
   const shortcuts = [
-    "Teacher's Classes",
-    "Teacher's Students",
-    "Teacher's Lessons",
-    "Teacher's Exams",
-    "Teacher's Assignments",
+    "Student's Lessons",
+    "Student's Teachers",
+    "Student's Results",
+    "Student's Exams",
+    "Student's Assignments",
   ];
 
   return (
@@ -67,7 +67,7 @@ const TeacherDetailsPage: React.FC = () => {
           <Card className="flex-1 flex gap-4 py-6 px-4 dark:border-input">
             <div className="w-1/3 flex 2xl:items-center justify-center">
               <Image
-                src="/demo/teacher.png"
+                src="https://img.freepik.com/premium-photo/young-asian-indian-student-with-glasses-backpack-holds-book-shows-thumbs-up_928503-89.jpg"
                 alt="teacher"
                 width={144}
                 height={144}
@@ -75,7 +75,7 @@ const TeacherDetailsPage: React.FC = () => {
               />
             </div>
             <div className="w-2/3 flex flex-col justify-between gap-4">
-              <h1 className="text-xl font-semibold">Romildo Silva</h1>
+              <h1 className="text-xl font-semibold">Humaluk Rounuluh</h1>
               <p className="text-sm text-foreground">
                 It is a long established fact that a reader will be distracted by the readable content of a page when
                 looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution
@@ -95,7 +95,7 @@ const TeacherDetailsPage: React.FC = () => {
         </div>
         <div className="mt-4">
           <Card className="dark:border-input">
-            <CardTitle className="p-6">Teacher&apos;s Schedule</CardTitle>
+            <CardTitle className="p-6">Student&apos;s Schedule</CardTitle>
             <CardContent>
               <BigCalendar />
             </CardContent>
@@ -133,4 +133,4 @@ const TeacherDetailsPage: React.FC = () => {
   );
 };
 
-export default TeacherDetailsPage;
+export default StudentDetailsPage;
