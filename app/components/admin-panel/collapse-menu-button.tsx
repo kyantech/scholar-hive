@@ -95,17 +95,20 @@ export function CollapseMenuButton({ icon: Icon, label, active, submenus, isOpen
             <DropdownMenuTrigger asChild>
               <Button
                 variant={active ? 'secondary' : 'ghost'}
-                className={cn('w-full justify-start h-10 mb-1', isOpen === false ? 'p-3' : '')}
+                className={cn('h-10 mb-1', isOpen === false ? 'w-10 p-0 justify-center' : 'w-full justify-start')}
               >
-                <div className="w-full items-center flex justify-between">
-                  <div className="flex items-center">
-                    <span className={cn(isOpen === false ? '' : 'mr-4')}>
+                <div
+                  className={cn('w-full flex items-center', isOpen === false ? 'justify-center' : 'justify-between')}
+                >
+                  <div className={cn('flex items-center', isOpen === false ? 'justify-center' : '')}>
+                    <span className={cn(isOpen === false ? 'ml-10' : 'mr-4')}>
                       <Icon size={18} />
                     </span>
-                    <p className={cn('max-w-[200px] truncate', isOpen === false ? 'opacity-0' : 'opacity-100')}>
+                    <p className={cn('max-w-[150px] truncate', isOpen === false ? 'opacity-0' : 'opacity-100')}>
                       {label}
                     </p>
                   </div>
+                  {isOpen && <ChevronDown size={18} className="transition-transform duration-200" />}
                 </div>
               </Button>
             </DropdownMenuTrigger>
@@ -115,8 +118,8 @@ export function CollapseMenuButton({ icon: Icon, label, active, submenus, isOpen
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
-      <DropdownMenuContent side="right" sideOffset={25} align="start">
-        <DropdownMenuLabel className="max-w-[190px] truncate">{label}</DropdownMenuLabel>
+      <DropdownMenuContent side="right" sideOffset={25} align="start" className="min-w-[180px]">
+        <DropdownMenuLabel className="truncate">{label}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {submenus.map(({ href, label }, index) => (
           <DropdownMenuItem key={index} asChild>
