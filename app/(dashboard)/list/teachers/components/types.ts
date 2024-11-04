@@ -3,7 +3,6 @@ export interface Teacher {
   name: string;
   email: string;
   photo: string;
-  teacherId: string;
   subjects: string[];
   classes: string[];
   phone: string;

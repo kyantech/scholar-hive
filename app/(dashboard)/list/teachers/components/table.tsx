@@ -15,14 +15,14 @@ const COLUMNS = [
     label: 'Info',
     render: (teacher: Teacher) => <TeacherAvatar teacher={teacher} />,
   },
-  { key: 'teacherId', label: 'ID do Professor' },
-  { key: 'subjects', label: 'Disciplinas' },
-  { key: 'classes', label: 'Turmas' },
-  { key: 'phone', label: 'Telefone' },
-  { key: 'address', label: 'Endereço' },
+  { key: 'id', label: 'Teacher ID' },
+  { key: 'subjects', label: 'Subjects' },
+  { key: 'classes', label: 'Classes' },
+  { key: 'phone', label: 'Phone' },
+  { key: 'address', label: 'Address' },
   {
     key: 'actions',
-    label: 'Ações',
+    label: 'Actions',
     render: (teacher: Teacher) => <ActionButtons teacherId={teacher.id} />,
   },
 ];
@@ -32,7 +32,7 @@ export default function TeachersTable() {
     <DataTable<Teacher>
       data={teachersData}
       columns={COLUMNS}
-      title="Todos os Professores"
+      title="All Teachers"
       searchFields={['name', 'email', 'subjects', 'classes', 'address']}
       formModal={<TeacherModal />}
     />
