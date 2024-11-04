@@ -3,17 +3,25 @@
 import React from 'react';
 
 import DataTable from '@/components/data-table';
+import { TableActionButtons } from '@/components/table-action-buttons';
+import { TableAvatar } from '@/components/table-avatar';
 import { teachersData } from '@/lib/data';
-import { ActionButtons } from './action-buttons';
-import { TeacherAvatar } from './teacher-avatar';
 import { TeacherModal } from './teacher-modal';
 import { Teacher } from './types';
+
+const handleEdit = (teacherId: string) => {
+  console.log('Editing teacher with ID:', teacherId);
+};
+
+const handleDelete = (teacherId: string) => {
+  console.log('Deleting teacher with ID:', teacherId);
+};
 
 const COLUMNS = [
   {
     key: 'info',
     label: 'Info',
-    render: (teacher: Teacher) => <TeacherAvatar teacher={teacher} />,
+    render: (teacher: Teacher) => <TableAvatar name={teacher.name} image={teacher.photo} email={teacher.email} />,
   },
   { key: 'id', label: 'Teacher ID' },
   { key: 'subjects', label: 'Subjects' },
@@ -23,7 +31,13 @@ const COLUMNS = [
   {
     key: 'actions',
     label: 'Actions',
-    render: (teacher: Teacher) => <ActionButtons teacherId={teacher.id} />,
+    render: (teacher: Teacher) => (
+      <TableActionButtons
+        viewHref={`/teachers/${teacher.id}`}
+        onEdit={() => handleEdit(teacher.id)}
+        onDelete={() => handleDelete(teacher.id)}
+      />
+    ),
   },
 ];
 

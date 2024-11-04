@@ -1,4 +1,4 @@
-import { FileDown, Filter } from 'lucide-react';
+import { FileDown } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,9 +31,6 @@ export function TableFilters({ searchTerm, onSearchChange, placeholder = 'Search
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
       />
-      <Button variant="outline" size="icon">
-        <Filter className="h-4 w-4" />
-      </Button>
       <Button variant="outline" size="icon">
         <FileDown className="h-4 w-4" />
       </Button>
