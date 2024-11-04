@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { BloodTypeSelect } from '@/components/blood-type-select';
@@ -13,8 +13,10 @@ import { FormModal } from '@/components/form-modal';
 import InputField from '@/components/input-field';
 import { SexSelect } from '@/components/sex-select';
 import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { classesData } from '@/lib/data';
 
-const teacherSchema = z.object({
+const studentSchema = z.object({
   username: z
     .string()
     .min(3, { message: 'Username must be at least 3 characters long!' })
@@ -32,12 +34,14 @@ const teacherSchema = z.object({
   sex: z.enum(['male', 'female', 'non-binary', 'transgender', 'other', 'prefer-not-to-say'], {
     message: 'Sex is required!',
   }),
+  grade: z.string().min(1, { message: 'Grade is required!' }),
+  class: z.string().min(1, { message: 'Class is required!' }),
   img: z.instanceof(FileList).optional(),
 });
 
-type TeacherFormInputs = z.infer<typeof teacherSchema>;
+type StudentFormInputs = z.infer<typeof studentSchema>;
 
-export function TeacherModal() {
+export function StudentModal() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -48,8 +52,8 @@ export function TeacherModal() {
     formState: { errors },
     watch,
     reset,
-  } = useForm<TeacherFormInputs>({
-    resolver: zodResolver(teacherSchema),
+  } = useForm<StudentFormInputs>({
+    resolver: zodResolver(studentSchema),
   });
 
   const selectedFile = watch('img');
@@ -127,16 +131,39 @@ export function TeacherModal() {
         <BloodTypeSelect register={register} control={control} error={errors.bloodType} />
         <DatePicker label="Birthday" control={control} error={errors.birthday} />
         <SexSelect register={register} control={control} error={errors.sex} />
+        <InputField label="Grade" name="grade" type="string" register={register} error={errors.grade} />
+        <div className="flex flex-col gap-2">
+          <Label className="text-xs">Class</Label>
+          <Controller
+            name="class"
+            control={control}
+            render={({ field }) => (
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a class" />
+                </SelectTrigger>
+                <SelectContent>
+                  {classesData.map((classItem) => (
+                    <SelectItem key={classItem.id} value={classItem.name}>
+                      {classItem.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
+          {errors.class && <p className="text-xs text-red-400">{errors.class.message}</p>}
+        </div>
       </div>
     </>
   );
 
   return (
     <FormModal
-      title="Add a new teacher"
+      title="Add a new student"
       actionLabel="Confirm"
       cancelLabel="Cancel"
-      description="Fill the form to add a new teacher"
+      description="Fill the form to add a new student"
       onAction={handleFormSubmit}
       open={isOpen}
       onOpenChange={handleModalClose}

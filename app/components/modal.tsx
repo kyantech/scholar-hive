@@ -15,7 +15,9 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-interface ReusableAlertDialogProps {
+type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+
+interface ModalProps {
   trigger: React.ReactElement;
   title?: string;
   description?: string;
@@ -23,12 +25,12 @@ interface ReusableAlertDialogProps {
   onAction?: () => void;
   actionLabel?: string;
   cancelLabel?: string;
-  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+  size?: ModalSize;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
 
-const sizeClasses = {
+const MODAL_SIZE_CLASSES: Record<ModalSize, string> = {
   sm: 'max-w-sm',
   md: 'max-w-md',
   lg: 'max-w-lg',
@@ -38,40 +40,50 @@ const sizeClasses = {
   '4xl': 'max-w-4xl',
 };
 
+const DEFAULT_ACTION_LABEL = 'Continue';
+const DEFAULT_CANCEL_LABEL = 'Cancel';
+const DEFAULT_SIZE: ModalSize = 'md';
+
 export function Modal({
   trigger,
   title,
   description,
   children,
   onAction,
-  actionLabel = 'Continue',
-  cancelLabel = 'Cancel',
-  size = 'md',
+  actionLabel = DEFAULT_ACTION_LABEL,
+  cancelLabel = DEFAULT_CANCEL_LABEL,
+  size = DEFAULT_SIZE,
   open,
   onOpenChange,
-}: ReusableAlertDialogProps) {
+}: ModalProps) {
+  const handleClose = () => onOpenChange?.(false);
+
+  const renderHeader = () => {
+    if (!title && !description) return null;
+
+    return (
+      <AlertDialogHeader>
+        {title && <AlertDialogTitle>{title}</AlertDialogTitle>}
+        {description && (
+          <AlertDialogDescription className="text-foreground text-xs">{description}</AlertDialogDescription>
+        )}
+      </AlertDialogHeader>
+    );
+  };
+
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogTrigger asChild>
-        <div onClick={() => onOpenChange?.(true)}>{trigger}</div>
-      </AlertDialogTrigger>
-      <AlertDialogContent className={sizeClasses[size]}>
+      <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+      <AlertDialogContent className={MODAL_SIZE_CLASSES[size]}>
         <X
           className="w-5 h-5 absolute top-4 right-4 cursor-pointer hover:text-foreground/80"
           aria-label="Close"
-          onClick={() => onOpenChange?.(false)}
+          onClick={handleClose}
         />
-        {(title || description) && (
-          <AlertDialogHeader>
-            {title && <AlertDialogTitle>{title}</AlertDialogTitle>}
-            {description && (
-              <AlertDialogDescription className="text-foreground text-xs">{description}</AlertDialogDescription>
-            )}
-          </AlertDialogHeader>
-        )}
+        {renderHeader()}
         {children}
         <AlertDialogFooter>
-          <AlertDialogCancel>{cancelLabel}</AlertDialogCancel>
+          <AlertDialogCancel onClick={handleClose}>{cancelLabel}</AlertDialogCancel>
           {onAction && <AlertDialogAction onClick={onAction}>{actionLabel}</AlertDialogAction>}
         </AlertDialogFooter>
       </AlertDialogContent>

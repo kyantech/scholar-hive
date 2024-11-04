@@ -3,6 +3,8 @@ import { Control, Controller, UseFormRegister } from 'react-hook-form';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
+const BLOOD_TYPES = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] as const;
+
 interface BloodTypeSelectProps {
   register: UseFormRegister<any>;
   control: Control<any>;
@@ -22,19 +24,16 @@ export function BloodTypeSelect({ control, error }: BloodTypeSelectProps) {
               <SelectValue placeholder="Select blood type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="A+">A+</SelectItem>
-              <SelectItem value="A-">A-</SelectItem>
-              <SelectItem value="B+">B+</SelectItem>
-              <SelectItem value="B-">B-</SelectItem>
-              <SelectItem value="AB+">AB+</SelectItem>
-              <SelectItem value="AB-">AB-</SelectItem>
-              <SelectItem value="O+">O+</SelectItem>
-              <SelectItem value="O-">O-</SelectItem>
+              {BLOOD_TYPES.map((type) => (
+                <SelectItem key={type} value={type}>
+                  {type}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         )}
       />
-      {error?.message && <p className="text-xs text-red-400">{error.message.toString()}</p>}
+      {error?.message && <p className="text-xs text-red-400">{error.message}</p>}
     </div>
   );
 }
