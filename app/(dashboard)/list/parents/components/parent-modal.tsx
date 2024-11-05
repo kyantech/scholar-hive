@@ -4,19 +4,18 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 
-import { BloodTypeSelect } from '@/components/blood-type-select';
-import { DatePicker } from '@/components/date-picker';
 import { FormModal } from '@/components/form-modal';
 import InputField from '@/components/input-field';
-import { SexSelect } from '@/components/sex-select';
+import MultipleSelector from '@/components/multi-select';
 import { Label } from '@/components/ui/label';
-import { teacherSchema } from '../schemas/schema';
+import { studentsData } from '@/lib/data';
+import { parentSchema } from '../schemas/schema';
 
-import type { TeacherFormInputs } from '../schemas/schema';
+import type { ParentFormInputs } from '../schemas/schema';
 
-export function TeacherModal() {
+export function ParentModal() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,8 +26,9 @@ export function TeacherModal() {
     formState: { errors },
     watch,
     reset,
-  } = useForm<TeacherFormInputs>({
-    resolver: zodResolver(teacherSchema),
+    setValue,
+  } = useForm<ParentFormInputs>({
+    resolver: zodResolver(parentSchema),
   });
 
   const selectedFile = watch('img');
@@ -37,6 +37,7 @@ export function TeacherModal() {
     if (!open) {
       reset();
       setPreviewUrl(null);
+      setValue('students', []);
     }
     setIsOpen(open);
   };
@@ -90,6 +91,11 @@ export function TeacherModal() {
     </>
   );
 
+  const studentOptions = studentsData.map((student) => ({
+    value: student.id,
+    label: student.name,
+  }));
+
   const renderPersonalInformationFields = () => (
     <>
       <span className="text-sm text-muted-foreground font-medium mt-3 mb-1">Personal Information</span>
@@ -102,20 +108,43 @@ export function TeacherModal() {
           <InputField label="Last Name" name="lastName" register={register} error={errors.lastName} />
         </div>
         <InputField label="Phone" name="phone" register={register} error={errors.phone} />
-        <InputField label="Address" name="address" register={register} error={errors.address} />
-        <BloodTypeSelect register={register} control={control} error={errors.bloodType} />
-        <DatePicker label="Birthday" control={control} error={errors.birthday} />
-        <SexSelect register={register} control={control} error={errors.sex} />
+        <div className="md:col-span-2">
+          <InputField label="Address" name="address" register={register} error={errors.address} />
+        </div>
+      </div>
+    </>
+  );
+
+  const renderStudentsInformationFields = () => (
+    <>
+      <span className="text-sm text-muted-foreground font-medium mt-3 mb-1">Students Information</span>
+      <div className="w-full">
+        <div className="flex flex-col gap-2">
+          <Label className="text-xs">Students</Label>
+          <Controller
+            name="students"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <MultipleSelector
+                value={value}
+                onChange={onChange}
+                options={studentOptions}
+                placeholder="Select students, type to search..."
+              />
+            )}
+          />
+          {errors.students && <p className="text-xs text-red-400">{errors.students.message}</p>}
+        </div>
       </div>
     </>
   );
 
   return (
     <FormModal
-      title="Add a new teacher"
+      title="Add a new parent"
       actionLabel="Confirm"
       cancelLabel="Cancel"
-      description="Fill the form to add a new teacher"
+      description="Fill the form to add a new parent"
       onAction={handleFormSubmit}
       open={isOpen}
       onOpenChange={handleModalClose}
@@ -123,6 +152,7 @@ export function TeacherModal() {
       <form className="flex flex-col gap-2">
         {renderAuthenticationFields()}
         {renderPersonalInformationFields()}
+        {renderStudentsInformationFields()}
       </form>
     </FormModal>
   );

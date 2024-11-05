@@ -37,7 +37,7 @@ const TablePagination: React.FC<PaginationProps> = ({
 
   const renderPageSizeSelector = () => (
     <div className="flex items-center space-x-2">
-      <span className="text-sm text-gray-500">Mostrar</span>
+      <span className="text-sm text-gray-500">Show</span>
       <select
         value={pageSize}
         onChange={(e) => onPageSizeChange(Number(e.target.value))}
@@ -50,24 +50,24 @@ const TablePagination: React.FC<PaginationProps> = ({
           </option>
         ))}
       </select>
-      <span className="text-sm text-gray-500">registros por página</span>
+      <span className="text-sm text-gray-500">items per page</span>
     </div>
   );
 
   const renderItemsInfo = () => (
     <div className="text-sm text-gray-500">
-      Mostrando {firstItem}-{lastItem} de {totalItems}
+      Showing {firstItem}-{lastItem} of {totalItems}
     </div>
   );
 
   const renderNavigationButtons = () => (
     <div className="flex space-x-2">
-      <Button variant="outline" size="sm" onClick={onPrevious} disabled={isFirstPage} aria-label="Página anterior">
+      <Button variant="outline" size="sm" onClick={onPrevious} disabled={isFirstPage} aria-label="Previous page">
         <ChevronLeft className="h-4 w-4 mr-2" />
-        Anterior
+        Previous
       </Button>
-      <Button variant="outline" size="sm" onClick={onNext} disabled={isLastPage} aria-label="Próxima página">
-        Próximo
+      <Button variant="outline" size="sm" onClick={onNext} disabled={isLastPage} aria-label="Next page">
+        Next
         <ChevronRight className="h-4 w-4 ml-2" />
       </Button>
     </div>

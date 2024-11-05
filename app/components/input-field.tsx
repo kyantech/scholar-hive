@@ -18,7 +18,7 @@ const InputField = ({ label, type = 'text', register, name, defaultValue, error,
     <div className="flex flex-col w-full">
       <Label className="text-xs mb-2">{label}</Label>
       <Input type={type} {...register(name)} {...inputProps} defaultValue={defaultValue} />
-      {error?.message && <p className="text-xs text-red-400">{error.message.toString()}</p>}
+      {error?.message && <p className="text-xs text-red-400 mt-2">{error.message.toString()}</p>}
     </div>
   );
 };

@@ -37,7 +37,7 @@ const COLUMNS = [
     label: 'Actions',
     render: (teacher: Teacher) => (
       <TableActionButtons
-        viewHref={`/teachers/${teacher.id}`}
+        viewHref={`teachers/${teacher.id}`}
         onEdit={() => handleEdit(teacher.id)}
         onDelete={() => handleDelete(teacher.id)}
       />

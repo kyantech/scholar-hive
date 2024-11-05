@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { USER_ROLE } from '@/lib/data';
 
 interface TableActionButtonsProps {
-  viewHref: string;
+  viewHref?: string;
   onEdit?: () => void;
   onDelete?: () => void;
 }
@@ -22,7 +22,7 @@ export function TableActionButtons({ viewHref, onEdit, onDelete }: TableActionBu
 
   const renderViewButton = () => (
     <Button variant="ghost" size="icon" asChild>
-      <Link href={viewHref}>
+      <Link href={viewHref || '#'}>
         <Eye className={iconSize} />
       </Link>
     </Button>
@@ -36,7 +36,7 @@ export function TableActionButtons({ viewHref, onEdit, onDelete }: TableActionBu
 
   return (
     <div className="flex space-x-2">
-      {renderViewButton()}
+      {viewHref && renderViewButton()}
       {renderEditButton()}
       {renderDeleteButton()}
     </div>
