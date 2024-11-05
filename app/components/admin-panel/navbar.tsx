@@ -5,7 +5,6 @@ import { SheetMenu } from '@/components/admin-panel/sheet-menu';
 import { UserNav } from '@/components/admin-panel/user-nav';
 import { ModeToggle } from '@/components/mode-toggle';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 
 export function Navbar() {
   return (
@@ -13,7 +12,6 @@ export function Navbar() {
       <div className="flex h-20 items-center border-b-2 dark:border-accent">
         <div className="flex items-center lg:space-x-0">
           <SheetMenu />
-          <Input type="search" placeholder="Search ..." />
         </div>
         <div className="flex flex-1 items-center justify-end gap-0.5 mr-3">
           <Button variant="ghost" size="icon" className="rounded-full">

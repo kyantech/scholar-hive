@@ -36,8 +36,8 @@ export function TableActionButtons({ viewHref, onEdit, onDelete }: TableActionBu
 
   return (
     <div className="flex space-x-2">
-      {renderEditButton()}
       {renderViewButton()}
+      {renderEditButton()}
       {renderDeleteButton()}
     </div>
   );

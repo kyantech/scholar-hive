@@ -27,7 +27,11 @@ const COLUMNS = [
   { key: 'grade', label: 'Grade' },
   { key: 'class', label: 'Class' },
   { key: 'phone', label: 'Phone' },
-  { key: 'address', label: 'Address' },
+  {
+    key: 'address',
+    label: 'Address',
+    render: (student: Student) => <div className="truncate max-w-[200px]">{student.address}</div>,
+  },
   {
     key: 'actions',
     label: 'Actions',
