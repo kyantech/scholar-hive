@@ -1,6 +1,6 @@
 import { Plus } from 'lucide-react';
 
-import { Modal } from './modal';
+import { Modal, ModalSize } from './modal';
 import { Button } from './ui/button';
 
 interface FormModalProps {
@@ -12,6 +12,7 @@ interface FormModalProps {
   children: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  size?: ModalSize;
 }
 
 export function FormModal({
@@ -23,6 +24,7 @@ export function FormModal({
   children,
   open,
   onOpenChange,
+  size = '4xl',
 }: FormModalProps) {
   return (
     <Modal
@@ -32,7 +34,7 @@ export function FormModal({
           <Plus className="h-4 w-4" />
         </Button>
       }
-      size="4xl"
+      size={size}
       actionLabel={actionLabel}
       onAction={onAction}
       cancelLabel={cancelLabel}

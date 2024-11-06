@@ -305,54 +305,84 @@ export const parentsData = [
 
 export const subjectsData = [
   {
-    id: 1,
+    id: 'clh1u2xkg0021qwer1234587',
     name: 'Math',
-    teachers: ['Alice Phelps', 'Russell Davidson'],
+    teachers: [
+      { id: 'clh1u2xkg0001qwer1234567', name: 'João Pedro Silva' },
+      { id: 'clh1u2xkg0002qwer1234568', name: 'Maria Oliveira Santos' },
+    ],
   },
   {
-    id: 2,
+    id: 'clh1u2xkg0022qwer1234588',
     name: 'English',
-    teachers: ['Manuel Becker', 'Eddie Chavez'],
+    teachers: [
+      { id: 'clh1u2xkg0003qwer1234569', name: 'Ana Paula Ferreira' },
+      { id: 'clh1u2xkg0004qwer1234570', name: 'Carlos Eduardo Lima' },
+    ],
   },
   {
-    id: 3,
+    id: 'clh1u2xkg0023qwer1234589',
     name: 'Physics',
-    teachers: ['Lola Newman', 'Darrell Delgado'],
+    teachers: [
+      { id: 'clh1u2xkg0005qwer1234571', name: 'Marcos Antonio Costa' },
+      { id: 'clh1u2xkg0006qwer1234572', name: 'Patricia Ribeiro' },
+    ],
   },
   {
-    id: 4,
+    id: 'clh1u2xkg0024qwer1234590',
     name: 'Chemistry',
-    teachers: ['Nathan Kelly', 'Benjamin Snyder'],
+    teachers: [
+      { id: 'clh1u2xkg0007qwer1234573', name: 'Fernanda Almeida' },
+      { id: 'clh1u2xkg0008qwer1234574', name: 'Ricardo Souza' },
+    ],
   },
   {
-    id: 5,
+    id: 'clh1u2xkg0025qwer1234591',
     name: 'Biology',
-    teachers: ['Alma Benson', 'Lina Collier'],
+    teachers: [
+      { id: 'clh1u2xkg0009qwer1234575', name: 'Luciana Martins' },
+      { id: 'clh1u2xkg0010qwer1234576', name: 'José Roberto Santos' },
+    ],
   },
   {
-    id: 6,
+    id: 'clh1u2xkg0026qwer1234592',
     name: 'History',
-    teachers: ['Hannah Bowman', 'Betty Obrien'],
+    teachers: [
+      { id: 'clh1u2xkg0011qwer1234577', name: 'Mariana Costa' },
+      { id: 'clh1u2xkg0012qwer1234578', name: 'Paulo Henrique Silva' },
+    ],
   },
   {
-    id: 7,
+    id: 'clh1u2xkg0027qwer1234593',
     name: 'Geography',
-    teachers: ['Lora French', 'Sue Brady'],
+    teachers: [
+      { id: 'clh1u2xkg0013qwer1234579', name: 'Beatriz Gomes' },
+      { id: 'clh1u2xkg0014qwer1234580', name: 'André Luis Pereira' },
+    ],
   },
   {
-    id: 8,
+    id: 'clh1u2xkg0028qwer1234594',
     name: 'Art',
-    teachers: ['Harriet Alvarado', 'Mayme Keller'],
+    teachers: [
+      { id: 'clh1u2xkg0015qwer1234581', name: 'Camila Rodrigues' },
+      { id: 'clh1u2xkg0016qwer1234582', name: 'Thiago Mendes' },
+    ],
   },
   {
-    id: 9,
+    id: 'clh1u2xkg0029qwer1234595',
     name: 'Music',
-    teachers: ['Gertrude Roy', 'Rosa Singleton'],
+    teachers: [
+      { id: 'clh1u2xkg0017qwer1234583', name: 'Renata Carvalho' },
+      { id: 'clh1u2xkg0018qwer1234584', name: 'Daniel Santos' },
+    ],
   },
   {
-    id: 10,
+    id: 'clh1u2xkg0030qwer1234596',
     name: 'Literature',
-    teachers: ['Effie Lynch', 'Brett Flowers'],
+    teachers: [
+      { id: 'clh1u2xkg0019qwer1234585', name: 'Amanda Nogueira' },
+      { id: 'clh1u2xkg0020qwer1234586', name: 'Bruno Oliveira' },
+    ],
   },
 ];
 
@@ -362,70 +392,100 @@ export const classesData = [
     name: '1A',
     capacity: 20,
     grade: '1',
-    supervisor: 'Joseph Padilla',
+    supervisor: {
+      id: 'clh1u2xkg0021qwer1234587',
+      name: 'Joseph Padilla',
+    },
   },
   {
     id: 'clh1u2xkg0001qwer1234568',
     name: '2B',
     capacity: 22,
     grade: '2',
-    supervisor: 'Blake Joseph',
+    supervisor: {
+      id: 'clh1u2xkg0022qwer1234588',
+      name: 'Blake Joseph',
+    },
   },
   {
     id: 'clh1u2xkg0002qwer1234569',
     name: '3C',
     capacity: 20,
     grade: '3',
-    supervisor: 'Tom Bennett',
+    supervisor: {
+      id: 'clh1u2xkg0023qwer1234589',
+      name: 'Tom Bennett',
+    },
   },
   {
     id: 'clh1u2xkg0003qwer1234570',
     name: '4B',
     capacity: 18,
     grade: '4',
-    supervisor: 'Aaron Collins',
+    supervisor: {
+      id: 'clh1u2xkg0024qwer1234590',
+      name: 'Aaron Collins',
+    },
   },
   {
     id: 'clh1u2xkg0004qwer1234571',
     name: '5A',
     capacity: 16,
     grade: '5',
-    supervisor: 'Iva Frank',
+    supervisor: {
+      id: 'clh1u2xkg0025qwer1234591',
+      name: 'Iva Frank',
+    },
   },
   {
     id: 'clh1u2xkg0005qwer1234572',
     name: '5B',
     capacity: 20,
     grade: '5',
-    supervisor: 'Leila Santos',
+    supervisor: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'Leila Santos',
+    },
   },
   {
     id: 'clh1u2xkg0006qwer1234573',
     name: '7A',
     capacity: 18,
     grade: '7',
-    supervisor: 'Carrie Walton',
+    supervisor: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Carrie Walton',
+    },
   },
   {
     id: 'clh1u2xkg0007qwer1234574',
     name: '6B',
     capacity: 22,
     grade: '6',
-    supervisor: 'Christopher Butler',
+    supervisor: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'Christopher Butler',
+    },
   },
   {
     id: 'clh1u2xkg0008qwer1234575',
     name: '6C',
     capacity: 18,
     grade: '6',
-    supervisor: 'Marc Miller',
+    supervisor: {
+      id: 'clh1u2xkg0029qwer1234595',
+      name: 'Marc Miller',
+    },
   },
   {
     id: 'clh1u2xkg0009qwer1234576',
     name: '6D',
     capacity: 20,
     grade: '6',
-    supervisor: 'Ophelia Marsh',
+    supervisor: {
+      id: 'clh1u2xkg0030qwer1234596',
+      name: 'Ophelia Marsh',
+    },
   },
 ];
 

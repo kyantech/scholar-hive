@@ -21,6 +21,7 @@ interface DataTableProps<T> {
   searchFields: (keyof T)[];
   initialPageSize?: number;
   formModal: React.ReactNode;
+  placeholder?: string;
 }
 
 export default function DataTable<T extends { id: string | number }>({
@@ -30,6 +31,7 @@ export default function DataTable<T extends { id: string | number }>({
   searchFields,
   formModal,
   initialPageSize = 10,
+  placeholder = 'Search...',
 }: DataTableProps<T>) {
   const [filteredItems, setFilteredItems] = useState<T[]>(data);
   const [searchTerm, setSearchTerm] = useState('');
@@ -83,7 +85,7 @@ export default function DataTable<T extends { id: string | number }>({
         <CardTitle className="text-xl font-bold flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <span>{title}</span>
           <div className="flex gap-2 items-center">
-            <TableFilters searchTerm={searchTerm} onSearchChange={setSearchTerm} placeholder="Search teachers..." />
+            <TableFilters searchTerm={searchTerm} onSearchChange={setSearchTerm} placeholder={placeholder} />
             {USER_ROLE === 'admin' && formModal}
           </div>
         </CardTitle>

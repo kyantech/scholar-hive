@@ -15,7 +15,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
+export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl';
 
 interface ModalProps {
   trigger: React.ReactElement;

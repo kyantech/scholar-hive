@@ -4,15 +4,15 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { BloodTypeSelect } from '@/components/blood-type-select';
 import { DatePicker } from '@/components/date-picker';
 import { FormModal } from '@/components/form-modal';
 import InputField from '@/components/input-field';
+import SelectField from '@/components/select-field';
 import { SexSelect } from '@/components/sex-select';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { classesData } from '@/lib/data';
 import { studentSchema } from '../schemas/schema';
 
@@ -109,28 +109,17 @@ export function StudentModal() {
         <DatePicker label="Birthday" control={control} error={errors.birthday} />
         <SexSelect register={register} control={control} error={errors.sex} />
         <InputField label="Grade" name="grade" type="string" register={register} error={errors.grade} />
-        <div className="flex flex-col gap-2">
-          <Label className="text-xs">Class</Label>
-          <Controller
-            name="class"
-            control={control}
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Select a class" />
-                </SelectTrigger>
-                <SelectContent>
-                  {classesData.map((classItem) => (
-                    <SelectItem key={classItem.id} value={classItem.name}>
-                      {classItem.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-          />
-          {errors.class && <p className="text-xs text-red-400">{errors.class.message}</p>}
-        </div>
+        <SelectField
+          label="Class"
+          name="class"
+          control={control}
+          options={classesData.map((classItem) => ({
+            id: classItem.name,
+            label: classItem.name,
+          }))}
+          error={errors.class}
+          placeholder="Select a class"
+        />
       </div>
     </>
   );
