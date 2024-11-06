@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React from 'react';
 
 import DataTable from '@/components/data-table';
@@ -26,7 +27,18 @@ const COLUMNS = [
   {
     key: 'students',
     label: 'Students',
-    render: (parent: Parent) => parent.students.join(', '),
+    render: (parent: Parent) => (
+      <>
+        {parent.students.map((student, index) => (
+          <React.Fragment key={student.id}>
+            {index > 0 && ', '}
+            <Link href={`/list/students/${student.id}`} className="hover:underline">
+              {student.name}
+            </Link>
+          </React.Fragment>
+        ))}
+      </>
+    ),
   },
   { key: 'email', label: 'Email' },
   { key: 'phone', label: 'Phone' },

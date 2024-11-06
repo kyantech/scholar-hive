@@ -214,7 +214,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0011qwer1234577',
     name: 'Roberto Silva Santos',
-    students: ['Sarah Brewer'],
+    students: [{ id: 'clh1u2xkg0031qwer1234597', name: 'Pedro Silva Santos' }],
     email: 'roberto.silva@gmail.com',
     phone: '1234567890',
     address: 'Rua Marechal Deodoro, 630 - Centro, Curitiba - PR, 80010-010',
@@ -223,7 +223,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0012qwer1234578',
     name: 'Ana Paula Oliveira',
-    students: ['Cecilia Bradley'],
+    students: [{ id: 'clh1u2xkg0032qwer1234598', name: 'Julia Oliveira' }],
     email: 'ana.oliveira@hotmail.com',
     phone: '1234567890',
     address: 'Av. Sete de Setembro, 4698 - Batel, Curitiba - PR, 80240-000',
@@ -232,7 +232,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0013qwer1234579',
     name: 'Carlos Eduardo Ferreira',
-    students: ['Fanny Caldwell'],
+    students: [{ id: 'clh1u2xkg0033qwer1234599', name: 'João Paulo Ferreira' }],
     email: 'carlos.ferreira@gmail.com',
     phone: '1234567890',
     address: 'Rua Padre Agostinho, 2885 - Bigorrilho, Curitiba - PR, 80710-000',
@@ -241,7 +241,10 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0014qwer1234580',
     name: 'Fernanda Costa Lima',
-    students: ['Mollie Fitzgerald', 'Ian Bryant'],
+    students: [
+      { id: 'clh1u2xkg0034qwer1234600', name: 'Mariana Costa Lima' },
+      { id: 'clh1u2xkg0035qwer1234601', name: 'Rafael Costa Lima' },
+    ],
     email: 'fernanda.lima@gmail.com',
     phone: '1234567890',
     address: 'Av. República Argentina, 1228 - Água Verde, Curitiba - PR, 80620-010',
@@ -250,7 +253,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0015qwer1234581',
     name: 'Ricardo Almeida Souza',
-    students: ['Mable Harvey'],
+    students: [{ id: 'clh1u2xkg0036qwer1234602', name: 'Lucas Almeida Souza' }],
     email: 'ricardo.souza@hotmail.com',
     phone: '1234567890',
     address: 'Rua Bispo Dom José, 2495 - Batel, Curitiba - PR, 80440-080',
@@ -259,7 +262,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0016qwer1234582',
     name: 'Patricia Mendes Santos',
-    students: ['Joel Lambert'],
+    students: [{ id: 'clh1u2xkg0037qwer1234603', name: 'Gabriel Mendes Santos' }],
     email: 'patricia.mendes@gmail.com',
     phone: '1234567890',
     address: 'Av. Silva Jardim, 567 - Rebouças, Curitiba - PR, 80230-000',
@@ -268,7 +271,10 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0017qwer1234583',
     name: 'Marcelo Pereira Lima',
-    students: ['Carrie Tucker', 'Lilly Underwood'],
+    students: [
+      { id: 'clh1u2xkg0038qwer1234604', name: 'Thiago Pereira Lima' },
+      { id: 'clh1u2xkg0039qwer1234605', name: 'Isabella Pereira Lima' },
+    ],
     email: 'marcelo.lima@gmail.com',
     phone: '1234567890',
     address: 'Rua Nilo Peçanha, 1552 - São Francisco, Curitiba - PR, 80520-000',
@@ -277,7 +283,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0018qwer1234584',
     name: 'Luciana Rodrigues Costa',
-    students: ['Alexander Blair'],
+    students: [{ id: 'clh1u2xkg0040qwer1234606', name: 'Felipe Rodrigues Costa' }],
     email: 'luciana.costa@hotmail.com',
     phone: '1234567890',
     address: 'Rua Tibagi, 294 - Centro, Curitiba - PR, 80060-110',
@@ -286,7 +292,10 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0019qwer1234585',
     name: 'André Santos Oliveira',
-    students: ['Susan Webster', 'Maude Stone'],
+    students: [
+      { id: 'clh1u2xkg0041qwer1234607', name: 'Beatriz Santos Oliveira' },
+      { id: 'clh1u2xkg0042qwer1234608', name: 'Bruno Santos Oliveira' },
+    ],
     email: 'andre.oliveira@gmail.com',
     phone: '1234567890',
     address: 'Rua Mateus Leme, 1908 - Centro Cívico, Curitiba - PR, 80530-010',
@@ -295,7 +304,7 @@ export const parentsData = [
   {
     id: 'clh1u2xkg0020qwer1234586',
     name: 'Mariana Costa Silva',
-    students: ['Stella Scott'],
+    students: [{ id: 'clh1u2xkg0043qwer1234609', name: 'Guilherme Costa Silva' }],
     email: 'mariana.silva@hotmail.com',
     phone: '1234567890',
     address: 'Av. Manoel Ribas, 4255 - Santa Felicidade, Curitiba - PR, 82025-160',
