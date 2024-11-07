@@ -14,13 +14,228 @@ enum UserRole {
   parent
 }
 
+enum BloodType {
+  A_POSITIVE  @map("A+")
+  A_NEGATIVE  @map("A-")
+  B_POSITIVE  @map("B+")
+  B_NEGATIVE  @map("B-")
+  AB_POSITIVE @map("AB+")
+  AB_NEGATIVE @map("AB-")
+  O_POSITIVE  @map("O+")
+  O_NEGATIVE  @map("O-")
+}
+
+enum Sex {
+  male
+  female
+  non_binary        @map("non-binary")
+  transgender
+  other
+  prefer_not_to_say @map("prefer-not-to-say")
+}
+
 model User {
   id             String   @id @default(cuid())
   name           String?
   email          String?  @unique
   hashedPassword String?
   image          String?
+  phone          String?
+  address        String?
   role           UserRole @default(admin)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Role-specific relations
+  teacherDetails Teacher?
+  studentDetails Student?
+  parentDetails  Parent?
+}
+
+model Teacher {
+  id        String    @id @default(cuid())
+  firstName String
+  lastName  String
+  bloodType BloodType
+  birthday  DateTime
+  sex       Sex
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String    @unique
+
+  // Relations
+  subjects          Subject[]
+  classes           Class[]
+  supervisedClasses Class[]      @relation("ClassSupervisor")
+  exams             Exam[]
+  assignments       Assignment[]
+  results           Result[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Student {
+  id        String    @id @default(cuid())
+  firstName String
+  lastName  String
+  bloodType BloodType
+  birthday  DateTime
+  sex       Sex
+  grade     String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String    @unique
+
+  // Relations
+  class   Class    @relation(fields: [classId], references: [id])
+  classId String
+  parents Parent[]
+  results Result[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Parent {
+  id        String @id @default(cuid())
+  firstName String
+  lastName  String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String @unique
+
+  // Relations
+  students Student[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subject {
+  id   String @id @default(cuid())
+  name String @unique
+
+  // Relations
+  teachers    Teacher[]
+  exams       Exam[]
+  assignments Assignment[]
+  results     Result[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Class {
+  id       String @id @default(cuid())
+  name     String @unique
+  grade    String
+  capacity Int
+
+  // Relations
+  students      Student[]
+  teachers      Teacher[]
+  supervisor    Teacher        @relation("ClassSupervisor", fields: [supervisorId], references: [id])
+  supervisorId  String
+  exams         Exam[]
+  assignments   Assignment[]
+  announcements Announcement[]
+  events        Event[]
+
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  CalendarEvent CalendarEvent[]
+}
+
+model Exam {
+  id   String   @id @default(cuid())
+  date DateTime
+
+  // Relations
+  subject   Subject  @relation(fields: [subjectId], references: [id])
+  subjectId String
+  class     Class    @relation(fields: [classId], references: [id])
+  classId   String
+  teacher   Teacher  @relation(fields: [teacherId], references: [id])
+  teacherId String
+  results   Result[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Result {
+  id    String   @id @default(cuid())
+  score Int
+  date  DateTime
+  type  String // 'exam' or 'assignment'
+
+  // Relations
+  exam      Exam    @relation(fields: [examId], references: [id])
+  examId    String
+  student   Student @relation(fields: [studentId], references: [id])
+  studentId String
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId String
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Assignment {
+  id      String   @id @default(cuid())
+  dueDate DateTime
+
+  // Relations
+  subject   Subject @relation(fields: [subjectId], references: [id])
+  subjectId String
+  class     Class   @relation(fields: [classId], references: [id])
+  classId   String
+  teacher   Teacher @relation(fields: [teacherId], references: [id])
+  teacherId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Announcement {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  date        DateTime
+
+  // Relations
+  class   Class  @relation(fields: [classId], references: [id])
+  classId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  startTime String
+  endTime   String
+
+  // Relations
+  class   Class  @relation(fields: [classId], references: [id])
+  classId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CalendarEvent {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  startTime String
+  endTime   String
+
+  // Relations
+  class   Class  @relation(fields: [classId], references: [id])
+  classId String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
