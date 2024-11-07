@@ -28,10 +28,7 @@ enum BloodType {
 enum Sex {
   male
   female
-  non_binary        @map("non-binary")
-  transgender
   other
-  prefer_not_to_say @map("prefer-not-to-say")
 }
 
 model User {

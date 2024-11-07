@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { BloodTypeSelect } from '@/components/blood-type-select';
@@ -15,12 +15,18 @@ import { SexSelect } from '@/components/sex-select';
 import { Label } from '@/components/ui/label';
 import { classesData } from '@/lib/data';
 import { studentSchema } from '../schemas/schema';
+import { Student } from './types';
 
 import type { StudentFormInputs } from '../schemas/schema';
 
-export function StudentModal() {
+interface StudentModalProps {
+  student?: Student | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function StudentModal({ student, open, onOpenChange }: StudentModalProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
 
   const {
     register,
@@ -29,34 +35,78 @@ export function StudentModal() {
     formState: { errors },
     watch,
     reset,
+    setValue,
   } = useForm<StudentFormInputs>({
     resolver: zodResolver(studentSchema),
+    defaultValues: {
+      class: student?.class?.id || '',
+    },
   });
 
   const selectedFile = watch('img');
 
-  const handleModalClose = (open: boolean) => {
-    if (!open) {
-      reset();
-      setPreviewUrl(null);
+  const resetForm = () => {
+    reset();
+    setPreviewUrl(null);
+  };
+
+  const handleModalClose = (isOpen: boolean) => {
+    if (!isOpen) {
+      resetForm();
     }
-    setIsOpen(open);
+    onOpenChange(isOpen);
+  };
+
+  const populateStudentFields = useCallback(
+    (studentData: Student) => {
+      const studentFields = {
+        email: studentData.email,
+        password: studentData.password,
+        name: studentData.name,
+        phone: studentData.phone,
+        address: studentData.address,
+        bloodType: studentData.bloodType,
+        birthday: new Date(studentData.birthday),
+        sex: studentData.sex,
+        grade: studentData.grade,
+        class: studentData.class.id,
+      };
+
+      Object.entries(studentFields).forEach(([field, value]) => {
+        setValue(field as keyof StudentFormInputs, value, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
+      });
+
+      setPreviewUrl(studentData.photo);
+    },
+    [setValue]
+  );
+
+  const handleFilePreview = (file: File) => {
+    const fileUrl = URL.createObjectURL(file);
+    setPreviewUrl(fileUrl);
+    return () => URL.revokeObjectURL(fileUrl);
   };
 
   useEffect(() => {
-    if (!selectedFile?.[0] || !(selectedFile[0] instanceof File)) return;
+    if (!student) return;
+    populateStudentFields(student);
+  }, [student, populateStudentFields]);
 
-    const fileUrl = URL.createObjectURL(selectedFile[0]);
-    setPreviewUrl(fileUrl);
-    return () => URL.revokeObjectURL(fileUrl);
+  useEffect(() => {
+    if (!selectedFile?.[0] || !(selectedFile[0] instanceof File)) return;
+    return handleFilePreview(selectedFile[0]);
   }, [selectedFile]);
 
   const handleFormSubmit = handleSubmit((data) => {
-    console.log('Form submitted with data:', data);
+    const formData = student ? { ...data, id: student.id } : data;
+    console.log(`${student ? 'Updating' : 'Creating'} student with data:`, formData);
     handleModalClose(false);
   });
 
-  const renderProfilePhotoUpload = () => (
+  const ProfilePhotoUpload = () => (
     <div className="flex flex-col gap-2">
       <Label className="text-xs">Profile Photo</Label>
       <div className="flex items-center gap-4">
@@ -84,8 +134,7 @@ export function StudentModal() {
   const renderAuthenticationFields = () => (
     <>
       <span className="text-sm text-muted-foreground font-medium mb-1">Authentication Information</span>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <InputField label="Username" name="username" register={register} error={errors?.username} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <InputField label="Email" name="email" register={register} error={errors?.email} />
         <InputField label="Password" name="password" type="password" register={register} error={errors?.password} />
       </div>
@@ -96,14 +145,13 @@ export function StudentModal() {
     <>
       <span className="text-sm text-muted-foreground font-medium mt-3 mb-1">Personal Information</span>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {renderProfilePhotoUpload()}
+        <ProfilePhotoUpload />
         <div className="md:flex md:items-center">
-          <InputField label="First Name" name="firstName" register={register} error={errors.firstName} />
+          <InputField label="Name" name="name" register={register} error={errors.name} />
         </div>
         <div className="md:flex md:items-center">
-          <InputField label="Last Name" name="lastName" register={register} error={errors.lastName} />
+          <InputField label="Phone" name="phone" register={register} error={errors.phone} />
         </div>
-        <InputField label="Phone" name="phone" register={register} error={errors.phone} />
         <InputField label="Address" name="address" register={register} error={errors.address} />
         <BloodTypeSelect register={register} control={control} error={errors.bloodType} />
         <DatePicker label="Birthday" name="birthday" control={control} error={errors.birthday} disableFutureDates />
@@ -114,7 +162,7 @@ export function StudentModal() {
           name="class"
           control={control}
           options={classesData.map((classItem) => ({
-            id: classItem.name,
+            id: classItem.id,
             label: classItem.name,
           }))}
           error={errors.class}
@@ -126,17 +174,17 @@ export function StudentModal() {
 
   return (
     <FormModal
-      title="Add a new student"
+      title={student ? 'Edit student' : 'Add a new student'}
       actionLabel="Confirm"
       cancelLabel="Cancel"
-      description="Fill the form to add a new student"
+      description={student ? 'Edit student information' : 'Fill the form to add a new student'}
       onAction={handleFormSubmit}
-      open={isOpen}
+      open={open}
       onOpenChange={handleModalClose}
     >
       <form className="flex flex-col gap-2">
-        {renderAuthenticationFields()}
         {renderPersonalInformationFields()}
+        {renderAuthenticationFields()}
       </form>
     </FormModal>
   );
