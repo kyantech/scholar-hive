@@ -16,38 +16,44 @@ interface DatePickerProps {
   label: string;
   control: Control<any>;
   error?: { message?: string };
+  disableFutureDates?: boolean;
+  name: string;
 }
 
 const EARLIEST_YEAR = 1900;
-const DEFAULT_MONTH = 0;
+const DEFAULT_MONTH = new Date().getMonth();
+const DEFAULT_YEAR = new Date().getFullYear();
 
 function generateYearRange(startYear: number, endYear: number): number[] {
   return Array.from({ length: endYear - startYear + 1 }, (_, index) => startYear + index);
 }
 
-export function DatePicker({ label, control, error }: DatePickerProps) {
+export function DatePicker({ label, control, error, disableFutureDates = false, name }: DatePickerProps) {
   const currentYear = new Date().getFullYear();
-  const [selectedYear, setSelectedYear] = React.useState<number>(currentYear);
+  const [selectedYear, setSelectedYear] = React.useState<number>(DEFAULT_YEAR);
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selectedMonth, setSelectedMonth] = React.useState<Date>(new Date(selectedYear, DEFAULT_MONTH, 1));
+  const [selectedMonth, setSelectedMonth] = React.useState<Date>(new Date(DEFAULT_YEAR, DEFAULT_MONTH, 1));
 
   const years = generateYearRange(EARLIEST_YEAR, currentYear);
 
   const handleYearChange = (value: string) => {
     const year = parseInt(value);
     setSelectedYear(year);
-    setSelectedMonth(new Date(year, DEFAULT_MONTH, 1));
+    setSelectedMonth(new Date(year, selectedMonth.getMonth(), 1));
   };
 
   const isDateDisabled = (date: Date) => {
-    return date > new Date() || date < new Date(`${EARLIEST_YEAR}-01-01`);
+    if (disableFutureDates && date > new Date()) {
+      return true;
+    }
+    return date < new Date(`${EARLIEST_YEAR}-01-01`);
   };
 
   return (
     <div className="flex flex-col gap-2">
       <Label className="text-xs">{label}</Label>
       <Controller
-        name="birthday"
+        name={name}
         control={control}
         render={({ field }) => (
           <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -90,6 +96,7 @@ export function DatePicker({ label, control, error }: DatePickerProps) {
                 toYear={currentYear}
                 month={selectedMonth}
                 onMonthChange={setSelectedMonth}
+                defaultMonth={new Date()}
               />
             </PopoverContent>
           </Popover>

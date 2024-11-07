@@ -104,7 +104,7 @@ export function TeacherModal() {
         <InputField label="Phone" name="phone" register={register} error={errors.phone} />
         <InputField label="Address" name="address" register={register} error={errors.address} />
         <BloodTypeSelect register={register} control={control} error={errors.bloodType} />
-        <DatePicker label="Birthday" control={control} error={errors.birthday} />
+        <DatePicker label="Birthday" name="birthday" control={control} error={errors.birthday} disableFutureDates />
         <SexSelect register={register} control={control} error={errors.sex} />
       </div>
     </>
