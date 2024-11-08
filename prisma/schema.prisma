@@ -172,7 +172,7 @@ model Result {
   id        String   @id @default(cuid())
   score     Int      @db.SmallInt
   date      DateTime @db.Timestamp()
-  type      String   @db.VarChar(20) // 'exam' or 'assignment'
+  type      String   @db.VarChar(20)
   examId    String
   studentId String
   teacherId String
