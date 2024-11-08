@@ -1,7 +1,13 @@
 export interface Assignment {
   id: string;
-  subject: string;
-  class: string;
+  subject: {
+    id: string;
+    name: string;
+  };
+  class: {
+    id: string;
+    name: string;
+  };
   teacher: {
     id: string;
     name: string;

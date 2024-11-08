@@ -2,7 +2,10 @@ export interface Announcement {
   id: string;
   title: string;
   description: string;
-  class: string;
+  class: {
+    id: string;
+    name: string;
+  };
   date: string;
 }
 

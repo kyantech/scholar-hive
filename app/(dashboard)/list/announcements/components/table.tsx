@@ -19,7 +19,7 @@ const handleDelete = (announcementId: string) => {
 const COLUMNS = [
   { key: 'title', label: 'Title' },
   { key: 'description', label: 'Description' },
-  { key: 'class', label: 'Class' },
+  { key: 'class', label: 'Class', render: (announcement: Announcement) => announcement.class.name },
   { key: 'date', label: 'Date' },
   {
     key: 'actions',

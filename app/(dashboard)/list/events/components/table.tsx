@@ -19,7 +19,7 @@ export default function EventsCardTable() {
     const results = eventsData.filter(
       (event) =>
         event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        event.class.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        event.class.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         event.date.includes(searchTerm) ||
         event.startTime.includes(searchTerm) ||
         event.endTime.includes(searchTerm)
@@ -83,7 +83,7 @@ export default function EventsCardTable() {
               {currentEvents.map((event) => (
                 <TableRow key={event.id}>
                   <TableCell className="font-medium">{event.title}</TableCell>
-                  <TableCell>{event.class}</TableCell>
+                  <TableCell>{event.class.name}</TableCell>
                   <TableCell>{event.date}</TableCell>
                   <TableCell>{event.startTime}</TableCell>
                   <TableCell>{event.endTime}</TableCell>

@@ -699,8 +699,8 @@ export const lessonsData = [
       name: 'History',
     },
     class: {
-      id: 'clh1u2xkg0003qwer1234570',
-      name: '4B',
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1B',
     },
     teacher: {
       id: 'clh1u2xkg0034qwer1234600',
@@ -710,6 +710,21 @@ export const lessonsData = [
   {
     id: 'clh1u2xkg0045qwer1234611',
     subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'Art',
+    },
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
+    teacher: {
+      id: 'clh1u2xkg0035qwer1234601',
+      name: 'Jose Ruiz',
+    },
+  },
+  {
+    id: 'clh1u2xkg0046qwer1234612',
+    subject: {
       id: 'clh1u2xkg0027qwer1234593',
       name: 'Music',
     },
@@ -718,45 +733,30 @@ export const lessonsData = [
       name: '5A',
     },
     teacher: {
-      id: 'clh1u2xkg0035qwer1234601',
+      id: 'clh1u2xkg0036qwer1234602',
       name: 'Birdie Butler',
     },
   },
   {
-    id: 'clh1u2xkg0046qwer1234612',
+    id: 'clh1u2xkg0047qwer1234613',
     subject: {
-      id: 'clh1u2xkg0023qwer1234589',
-      name: 'Physics',
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
     },
     class: {
       id: 'clh1u2xkg0005qwer1234572',
       name: '5B',
     },
     teacher: {
-      id: 'clh1u2xkg0036qwer1234602',
-      name: 'Bettie Oliver',
-    },
-  },
-  {
-    id: 'clh1u2xkg0047qwer1234613',
-    subject: {
-      id: 'clh1u2xkg0024qwer1234590',
-      name: 'Chemistry',
-    },
-    class: {
-      id: 'clh1u2xkg0006qwer1234573',
-      name: '7A',
-    },
-    teacher: {
       id: 'clh1u2xkg0037qwer1234603',
-      name: 'Herman Howard',
+      name: 'Shawn Norman',
     },
   },
   {
     id: 'clh1u2xkg0048qwer1234614',
     subject: {
-      id: 'clh1u2xkg0028qwer1234594',
-      name: 'English',
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Geography',
     },
     class: {
       id: 'clh1u2xkg0007qwer1234574',
@@ -764,7 +764,7 @@ export const lessonsData = [
     },
     teacher: {
       id: 'clh1u2xkg0038qwer1234604',
-      name: 'Lucinda Thomas',
+      name: 'Don Holloway',
     },
   },
   {
@@ -774,12 +774,12 @@ export const lessonsData = [
       name: 'Physics',
     },
     class: {
-      id: 'clh1u2xkg0008qwer1234575',
-      name: '6C',
+      id: 'clh1u2xkg0006qwer1234573',
+      name: '7A',
     },
     teacher: {
       id: 'clh1u2xkg0039qwer1234605',
-      name: 'Ronald Roberts',
+      name: 'Franklin Gregory',
     },
   },
   {
@@ -794,7 +794,7 @@ export const lessonsData = [
     },
     teacher: {
       id: 'clh1u2xkg0040qwer1234606',
-      name: 'Julia Pittman',
+      name: 'Danny Nguyen',
     },
   },
 ];
@@ -802,8 +802,14 @@ export const lessonsData = [
 export const examsData = [
   {
     id: 'clh1u2xkg0051qwer1234617',
-    subject: 'Math',
-    class: '1A',
+    subject: {
+      id: 'clh1u2xkg0021qwer1234587',
+      name: 'Math',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     teacher: {
       id: 'clh1u2xkg0041qwer1234607',
       name: 'Martha Morris',
@@ -812,8 +818,14 @@ export const examsData = [
   },
   {
     id: 'clh1u2xkg0052qwer1234618',
-    subject: 'English',
-    class: '2A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'English',
+    },
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     teacher: {
       id: 'clh1u2xkg0042qwer1234608',
       name: 'Randall Garcia',
@@ -822,8 +834,14 @@ export const examsData = [
   },
   {
     id: 'clh1u2xkg0053qwer1234619',
-    subject: 'Science',
-    class: '3A',
+    subject: {
+      id: 'clh1u2xkg0025qwer1234591',
+      name: 'Biology',
+    },
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     teacher: {
       id: 'clh1u2xkg0043qwer1234609',
       name: 'Myrtie Scott',
@@ -832,71 +850,113 @@ export const examsData = [
   },
   {
     id: 'clh1u2xkg0054qwer1234620',
-    subject: 'Social Studies',
-    class: '1B',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1B',
+    },
     teacher: {
-      id: 'clh1u2xkg0044qwer1234610',
-      name: 'Alvin Swanson',
+      id: 'clh1u2xkg0054qwer1234620',
+      name: 'Willie Medina',
     },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0055qwer1234621',
-    subject: 'Art',
-    class: '4A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'Art',
+    },
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     teacher: {
-      id: 'clh1u2xkg0045qwer1234611',
-      name: 'Mabelle Wallace',
+      id: 'clh1u2xkg0055qwer1234621',
+      name: 'Jose Ruiz',
     },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0056qwer1234622',
-    subject: 'Music',
-    class: '5A',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Music',
+    },
+    class: {
+      id: 'clh1u2xkg0004qwer1234571',
+      name: '5A',
+    },
     teacher: {
-      id: 'clh1u2xkg0046qwer1234612',
-      name: 'Dale Thompson',
+      id: 'clh1u2xkg0056qwer1234622',
+      name: 'Cassandra Monteiro',
     },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0057qwer1234623',
-    subject: 'History',
-    class: '6A',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0005qwer1234572',
+      name: '5B',
+    },
     teacher: {
-      id: 'clh1u2xkg0047qwer1234613',
-      name: 'Allie Conner',
+      id: 'clh1u2xkg0057qwer1234623',
+      name: 'Shawn Norman',
     },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0058qwer1234624',
-    subject: 'Geography',
-    class: '6B',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Geography',
+    },
+    class: {
+      id: 'clh1u2xkg0007qwer1234574',
+      name: '6B',
+    },
     teacher: {
-      id: 'clh1u2xkg0048qwer1234614',
-      name: 'Hunter Fuller',
+      id: 'clh1u2xkg0058qwer1234624',
+      name: 'Don Holloway',
     },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0059qwer1234625',
-    subject: 'Physics',
-    class: '7A',
+    subject: {
+      id: 'clh1u2xkg0023qwer1234589',
+      name: 'Physics',
+    },
+    class: {
+      id: 'clh1u2xkg0006qwer1234573',
+      name: '7A',
+    },
     teacher: {
-      id: 'clh1u2xkg0049qwer1234615',
-      name: 'Lois Lindsey',
+      id: 'clh1u2xkg0059qwer1234625',
+      name: 'Franklin Gregory',
     },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0060qwer1234626',
-    subject: 'Chemistry',
-    class: '8A',
+    subject: {
+      id: 'clh1u2xkg0024qwer1234590',
+      name: 'Chemistry',
+    },
+    class: {
+      id: 'clh1u2xkg0009qwer1234576',
+      name: '6D',
+    },
     teacher: {
-      id: 'clh1u2xkg0050qwer1234616',
-      name: 'Vera Soto',
+      id: 'clh1u2xkg0060qwer1234626',
+      name: 'Danny Nguyen',
     },
     date: '2025-01-01',
   },
@@ -905,8 +965,14 @@ export const examsData = [
 export const assignmentsData = [
   {
     id: 'clh1u2xkg0061qwer1234627',
-    subject: 'Math',
-    class: '1A',
+    subject: {
+      id: 'clh1u2xkg0021qwer1234587',
+      name: 'Math',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     teacher: {
       id: 'clh1u2xkg0051qwer1234617',
       name: 'Anthony Boone',
@@ -915,8 +981,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0062qwer1234628',
-    subject: 'English',
-    class: '2A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'English',
+    },
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     teacher: {
       id: 'clh1u2xkg0052qwer1234618',
       name: 'Clifford Bowen',
@@ -925,8 +997,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0063qwer1234629',
-    subject: 'Science',
-    class: '3A',
+    subject: {
+      id: 'clh1u2xkg0025qwer1234591',
+      name: 'Biology',
+    },
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     teacher: {
       id: 'clh1u2xkg0053qwer1234619',
       name: 'Catherine Malone',
@@ -935,8 +1013,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0064qwer1234630',
-    subject: 'Social Studies',
-    class: '1B',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1B',
+    },
     teacher: {
       id: 'clh1u2xkg0054qwer1234620',
       name: 'Willie Medina',
@@ -945,8 +1029,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0065qwer1234631',
-    subject: 'Art',
-    class: '4A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'Art',
+    },
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     teacher: {
       id: 'clh1u2xkg0055qwer1234621',
       name: 'Jose Ruiz',
@@ -955,18 +1045,30 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0066qwer1234632',
-    subject: 'Music',
-    class: '5A',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Music',
+    },
+    class: {
+      id: 'clh1u2xkg0004qwer1234571',
+      name: '5A',
+    },
     teacher: {
       id: 'clh1u2xkg0056qwer1234622',
-      name: 'Katharine Owens',
+      name: 'Cassandra Monteiro',
     },
     dueDate: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0067qwer1234633',
-    subject: 'History',
-    class: '6A',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0005qwer1234572',
+      name: '5B',
+    },
     teacher: {
       id: 'clh1u2xkg0057qwer1234623',
       name: 'Shawn Norman',
@@ -975,8 +1077,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0068qwer1234634',
-    subject: 'Geography',
-    class: '6B',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Geography',
+    },
+    class: {
+      id: 'clh1u2xkg0007qwer1234574',
+      name: '6B',
+    },
     teacher: {
       id: 'clh1u2xkg0058qwer1234624',
       name: 'Don Holloway',
@@ -985,8 +1093,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0069qwer1234635',
-    subject: 'Physics',
-    class: '7A',
+    subject: {
+      id: 'clh1u2xkg0023qwer1234589',
+      name: 'Physics',
+    },
+    class: {
+      id: 'clh1u2xkg0006qwer1234573',
+      name: '7A',
+    },
     teacher: {
       id: 'clh1u2xkg0059qwer1234625',
       name: 'Franklin Gregory',
@@ -995,8 +1109,14 @@ export const assignmentsData = [
   },
   {
     id: 'clh1u2xkg0070qwer1234636',
-    subject: 'Chemistry',
-    class: '8A',
+    subject: {
+      id: 'clh1u2xkg0024qwer1234590',
+      name: 'Chemistry',
+    },
+    class: {
+      id: 'clh1u2xkg0009qwer1234576',
+      name: '6D',
+    },
     teacher: {
       id: 'clh1u2xkg0060qwer1234626',
       name: 'Danny Nguyen',
@@ -1008,15 +1128,21 @@ export const assignmentsData = [
 export const resultsData = [
   {
     id: 'clh1u2xkg0071qwer1234637',
-    subject: 'Math',
-    class: '1A',
+    subject: {
+      id: 'clh1u2xkg0021qwer1234587',
+      name: 'Math',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     teacher: {
       id: 'clh1u2xkg0041qwer1234607',
       name: 'Jurema Olivença',
     },
     student: {
-      id: 'clh1u2xkg0081qwer1234647',
-      name: 'Ícaro Damasceno',
+      id: 'clh1u2xkg0001qwer1234567',
+      name: 'Pedro Oliveira',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1024,15 +1150,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0072qwer1234638',
-    subject: 'English',
-    class: '2A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'English',
+    },
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     teacher: {
       id: 'clh1u2xkg0042qwer1234608',
       name: 'Teodoro Queiroz',
     },
     student: {
-      id: 'clh1u2xkg0082qwer1234648',
-      name: 'Gael Mendonça',
+      id: 'clh1u2xkg0002qwer1234568',
+      name: 'Ana Clara Santos',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1040,15 +1172,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0073qwer1234639',
-    subject: 'Science',
-    class: '3A',
+    subject: {
+      id: 'clh1u2xkg0025qwer1234591',
+      name: 'Biology',
+    },
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     teacher: {
       id: 'clh1u2xkg0043qwer1234609',
       name: 'Berenice Alcântara',
     },
     student: {
-      id: 'clh1u2xkg0083qwer1234649',
-      name: 'Murilo Quaresma',
+      id: 'clh1u2xkg0003qwer1234569',
+      name: 'Miguel Costa',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1056,15 +1194,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0074qwer1234640',
-    subject: 'Social Studies',
-    class: '1B',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1B',
+    },
     teacher: {
       id: 'clh1u2xkg0044qwer1234610',
       name: 'Tibúrcio Vasconcelos',
     },
     student: {
-      id: 'clh1u2xkg0084qwer1234650',
-      name: 'Dante Figueiredo',
+      id: 'clh1u2xkg0004qwer1234570',
+      name: 'Julia Ferreira',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1072,15 +1216,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0075qwer1234641',
-    subject: 'Art',
-    class: '4A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'Art',
+    },
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     teacher: {
       id: 'clh1u2xkg0045qwer1234611',
       name: 'Iracema Botelho',
     },
     student: {
-      id: 'clh1u2xkg0085qwer1234651',
-      name: 'Heitor Cavalcanti',
+      id: 'clh1u2xkg0005qwer1234571',
+      name: 'Thiago Almeida',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1088,15 +1238,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0076qwer1234642',
-    subject: 'Music',
-    class: '5A',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Music',
+    },
+    class: {
+      id: 'clh1u2xkg0004qwer1234571',
+      name: '5A',
+    },
     teacher: {
       id: 'clh1u2xkg0046qwer1234612',
       name: 'Cassandra Monteiro',
     },
     student: {
-      id: 'clh1u2xkg0086qwer1234652',
-      name: 'Benício Teixeira',
+      id: 'clh1u2xkg0006qwer1234572',
+      name: 'Mariana Silva',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1104,15 +1260,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0077qwer1234643',
-    subject: 'History',
-    class: '6A',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0005qwer1234572',
+      name: '5B',
+    },
     teacher: {
       id: 'clh1u2xkg0047qwer1234613',
       name: 'Osvaldo Paraguaçu',
     },
     student: {
-      id: 'clh1u2xkg0087qwer1234653',
-      name: 'Théo Guimarães',
+      id: 'clh1u2xkg0007qwer1234573',
+      name: 'Lucas Ribeiro',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1120,15 +1282,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0078qwer1234644',
-    subject: 'Geography',
-    class: '6B',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Geography',
+    },
+    class: {
+      id: 'clh1u2xkg0007qwer1234574',
+      name: '6B',
+    },
     teacher: {
       id: 'clh1u2xkg0048qwer1234614',
       name: 'Artemísia Buarque',
     },
     student: {
-      id: 'clh1u2xkg0088qwer1234654',
-      name: 'Ravi Nogueira',
+      id: 'clh1u2xkg0008qwer1234574',
+      name: 'Isabella Martins',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1136,15 +1304,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0079qwer1234645',
-    subject: 'Physics',
-    class: '7A',
+    subject: {
+      id: 'clh1u2xkg0023qwer1234589',
+      name: 'Physics',
+    },
+    class: {
+      id: 'clh1u2xkg0006qwer1234573',
+      name: '7A',
+    },
     teacher: {
       id: 'clh1u2xkg0049qwer1234615',
       name: 'Demétrio Alencar',
     },
     student: {
-      id: 'clh1u2xkg0089qwer1234655',
-      name: 'Caetano Jaguaribe',
+      id: 'clh1u2xkg0009qwer1234575',
+      name: 'Gabriel Santos',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1152,15 +1326,21 @@ export const resultsData = [
   },
   {
     id: 'clh1u2xkg0080qwer1234646',
-    subject: 'Chemistry',
-    class: '8A',
+    subject: {
+      id: 'clh1u2xkg0024qwer1234590',
+      name: 'Chemistry',
+    },
+    class: {
+      id: 'clh1u2xkg0009qwer1234576',
+      name: '6D',
+    },
     teacher: {
       id: 'clh1u2xkg0050qwer1234616',
       name: 'Violeta Portinari',
     },
     student: {
-      id: 'clh1u2xkg0090qwer1234656',
-      name: 'Inácio Bandeira',
+      id: 'clh1u2xkg0010qwer1234576',
+      name: 'Sofia Pereira',
     },
     date: '2025-01-01',
     type: 'exam',
@@ -1172,7 +1352,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0091qwer1234657',
     title: 'Lake Trip',
-    class: '1A',
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1180,7 +1363,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0092qwer1234658',
     title: 'Picnic',
-    class: '2A',
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1188,7 +1374,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0093qwer1234659',
     title: 'Beach Trip',
-    class: '3A',
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1196,7 +1385,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0094qwer1234660',
     title: 'Museum Trip',
-    class: '4A',
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1204,7 +1396,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0095qwer1234661',
     title: 'Music Concert',
-    class: '5A',
+    class: {
+      id: 'clh1u2xkg0004qwer1234571',
+      name: '5A',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1212,7 +1407,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0096qwer1234662',
     title: 'Magician Show',
-    class: '1B',
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1220,7 +1418,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0097qwer1234663',
     title: 'Lake Trip',
-    class: '2B',
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1228,7 +1429,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0098qwer1234664',
     title: 'Cycling Race',
-    class: '3B',
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1236,7 +1440,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0099qwer1234665',
     title: 'Art Exhibition',
-    class: '4B',
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1244,7 +1451,10 @@ export const eventsData = [
   {
     id: 'clh1u2xkg0100qwer1234666',
     title: 'Sports Tournament',
-    class: '5B',
+    class: {
+      id: 'clh1u2xkg0005qwer1234572',
+      name: '5B',
+    },
     date: '2025-01-01',
     startTime: '10:00',
     endTime: '11:00',
@@ -1257,21 +1467,30 @@ export const announcementsData = [
     title: 'About 4A Math Test',
     description:
       'Important information about the upcoming math test for class 4A. Please review all chapters covered in class.',
-    class: '4A',
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0102qwer1234668',
     title: 'About 3A Math Test',
     description: 'Details about the math test for class 3A. Make sure to practice algebra problems from chapters 1-5.',
-    class: '3A',
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0103qwer1234669',
     title: 'About 3B Math Test',
     description: 'Information regarding the upcoming math assessment for class 3B. Focus on geometry and fractions.',
-    class: '3B',
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     date: '2025-01-01',
   },
   {
@@ -1279,21 +1498,30 @@ export const announcementsData = [
     title: 'About 6A Math Test',
     description:
       'Important announcement about the math exam for class 6A. Study advanced algebra and trigonometry concepts.',
-    class: '6A',
+    class: {
+      id: 'clh1u2xkg0007qwer1234574',
+      name: '6B',
+    },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0105qwer1234671',
     title: 'About 8C Math Test',
     description: 'Details for class 8C math examination. Review calculus fundamentals and complex equations.',
-    class: '8C',
+    class: {
+      id: 'clh1u2xkg0009qwer1234576',
+      name: '6D',
+    },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0106qwer1234672',
     title: 'About 2A Math Test',
     description: 'Information about the math test for class 2A. Focus on basic arithmetic and problem-solving skills.',
-    class: '2A',
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     date: '2025-01-01',
   },
   {
@@ -1301,14 +1529,20 @@ export const announcementsData = [
     title: 'About 4C Math Test',
     description:
       'Announcement regarding the math assessment for class 4C. Study multiplication, division, and word problems.',
-    class: '4C',
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0108qwer1234674',
     title: 'About 4B Math Test',
     description: 'Important details about the upcoming math test for class 4B. Review fractions and decimals.',
-    class: '4B',
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     date: '2025-01-01',
   },
   {
@@ -1316,14 +1550,20 @@ export const announcementsData = [
     title: 'About 3C Math Test',
     description:
       'Information about the math examination for class 3C. Practice measurement and basic geometry concepts.',
-    class: '3C',
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     date: '2025-01-01',
   },
   {
     id: 'clh1u2xkg0110qwer1234676',
     title: 'About 1C Math Test',
     description: 'Details about the math assessment for class 1C. Focus on number recognition and basic addition.',
-    class: '1C',
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     date: '2025-01-01',
   },
 ];
