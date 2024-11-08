@@ -1,24 +1,37 @@
 -- CreateEnum
+CREATE TYPE "UserRole" AS ENUM ('student', 'admin', 'teacher', 'parent');
+
+-- CreateEnum
 CREATE TYPE "BloodType" AS ENUM ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-');
 
 -- CreateEnum
-CREATE TYPE "Sex" AS ENUM ('male', 'female', 'non-binary', 'transgender', 'other', 'prefer-not-to-say');
+CREATE TYPE "Sex" AS ENUM ('male', 'female', 'other');
 
--- AlterTable
-ALTER TABLE "User" ADD COLUMN     "address" TEXT,
-ADD COLUMN     "phone" TEXT;
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "name" VARCHAR(100) NOT NULL,
+    "email" VARCHAR(255) NOT NULL,
+    "hashedPassword" VARCHAR(255) NOT NULL,
+    "image" TEXT,
+    "phone" VARCHAR(50),
+    "address" VARCHAR(255),
+    "role" "UserRole" NOT NULL DEFAULT 'admin',
+    "bloodType" "BloodType" NOT NULL,
+    "birthday" DATE NOT NULL,
+    "sex" "Sex" NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Teacher" (
     "id" TEXT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
-    "bloodType" "BloodType" NOT NULL,
-    "birthday" TIMESTAMP(3) NOT NULL,
-    "sex" "Sex" NOT NULL,
     "userId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Teacher_pkey" PRIMARY KEY ("id")
 );
@@ -26,16 +39,11 @@ CREATE TABLE "Teacher" (
 -- CreateTable
 CREATE TABLE "Student" (
     "id" TEXT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
-    "bloodType" "BloodType" NOT NULL,
-    "birthday" TIMESTAMP(3) NOT NULL,
-    "sex" "Sex" NOT NULL,
-    "grade" TEXT NOT NULL,
+    "grade" VARCHAR(20) NOT NULL,
     "userId" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Student_pkey" PRIMARY KEY ("id")
 );
@@ -43,11 +51,9 @@ CREATE TABLE "Student" (
 -- CreateTable
 CREATE TABLE "Parent" (
     "id" TEXT NOT NULL,
-    "firstName" TEXT NOT NULL,
-    "lastName" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Parent_pkey" PRIMARY KEY ("id")
 );
@@ -55,9 +61,9 @@ CREATE TABLE "Parent" (
 -- CreateTable
 CREATE TABLE "Subject" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "name" VARCHAR(100) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Subject_pkey" PRIMARY KEY ("id")
 );
@@ -65,12 +71,12 @@ CREATE TABLE "Subject" (
 -- CreateTable
 CREATE TABLE "Class" (
     "id" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "grade" TEXT NOT NULL,
-    "capacity" INTEGER NOT NULL,
+    "name" VARCHAR(50) NOT NULL,
+    "grade" VARCHAR(20) NOT NULL,
+    "capacity" INTEGER NOT NULL DEFAULT 30,
     "supervisorId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Class_pkey" PRIMARY KEY ("id")
 );
@@ -78,12 +84,12 @@ CREATE TABLE "Class" (
 -- CreateTable
 CREATE TABLE "Exam" (
     "id" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP NOT NULL,
     "subjectId" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
     "teacherId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Exam_pkey" PRIMARY KEY ("id")
 );
@@ -91,15 +97,15 @@ CREATE TABLE "Exam" (
 -- CreateTable
 CREATE TABLE "Result" (
     "id" TEXT NOT NULL,
-    "score" INTEGER NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "type" TEXT NOT NULL,
+    "score" SMALLINT NOT NULL,
+    "date" TIMESTAMP NOT NULL,
+    "type" VARCHAR(20) NOT NULL,
     "examId" TEXT NOT NULL,
     "studentId" TEXT NOT NULL,
     "teacherId" TEXT NOT NULL,
     "subjectId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Result_pkey" PRIMARY KEY ("id")
 );
@@ -107,12 +113,12 @@ CREATE TABLE "Result" (
 -- CreateTable
 CREATE TABLE "Assignment" (
     "id" TEXT NOT NULL,
-    "dueDate" TIMESTAMP(3) NOT NULL,
+    "dueDate" TIMESTAMP NOT NULL,
     "subjectId" TEXT NOT NULL,
     "classId" TEXT NOT NULL,
     "teacherId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Assignment_pkey" PRIMARY KEY ("id")
 );
@@ -120,12 +126,12 @@ CREATE TABLE "Assignment" (
 -- CreateTable
 CREATE TABLE "Announcement" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
+    "title" VARCHAR(200) NOT NULL,
     "description" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP NOT NULL,
     "classId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Announcement_pkey" PRIMARY KEY ("id")
 );
@@ -133,13 +139,13 @@ CREATE TABLE "Announcement" (
 -- CreateTable
 CREATE TABLE "Event" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "startTime" TEXT NOT NULL,
-    "endTime" TEXT NOT NULL,
+    "title" VARCHAR(200) NOT NULL,
+    "date" DATE NOT NULL,
+    "startTime" VARCHAR(20) NOT NULL,
+    "endTime" VARCHAR(20) NOT NULL,
     "classId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "Event_pkey" PRIMARY KEY ("id")
 );
@@ -147,13 +153,13 @@ CREATE TABLE "Event" (
 -- CreateTable
 CREATE TABLE "CalendarEvent" (
     "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "date" TIMESTAMP(3) NOT NULL,
-    "startTime" TEXT NOT NULL,
-    "endTime" TEXT NOT NULL,
+    "title" VARCHAR(200) NOT NULL,
+    "date" DATE NOT NULL,
+    "startTime" VARCHAR(20) NOT NULL,
+    "endTime" VARCHAR(20) NOT NULL,
     "classId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP NOT NULL,
 
     CONSTRAINT "CalendarEvent_pkey" PRIMARY KEY ("id")
 );
@@ -177,19 +183,103 @@ CREATE TABLE "_ClassToTeacher" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- CreateIndex
+CREATE INDEX "User_email_idx" ON "User"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Teacher_userId_key" ON "Teacher"("userId");
+
+-- CreateIndex
+CREATE INDEX "Teacher_userId_idx" ON "Teacher"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Student_userId_key" ON "Student"("userId");
 
 -- CreateIndex
+CREATE INDEX "Student_userId_idx" ON "Student"("userId");
+
+-- CreateIndex
+CREATE INDEX "Student_classId_idx" ON "Student"("classId");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Parent_userId_key" ON "Parent"("userId");
+
+-- CreateIndex
+CREATE INDEX "Parent_userId_idx" ON "Parent"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Subject_name_key" ON "Subject"("name");
 
 -- CreateIndex
+CREATE INDEX "Subject_name_idx" ON "Subject"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Class_name_key" ON "Class"("name");
+
+-- CreateIndex
+CREATE INDEX "Class_name_idx" ON "Class"("name");
+
+-- CreateIndex
+CREATE INDEX "Class_supervisorId_idx" ON "Class"("supervisorId");
+
+-- CreateIndex
+CREATE INDEX "Exam_subjectId_idx" ON "Exam"("subjectId");
+
+-- CreateIndex
+CREATE INDEX "Exam_classId_idx" ON "Exam"("classId");
+
+-- CreateIndex
+CREATE INDEX "Exam_teacherId_idx" ON "Exam"("teacherId");
+
+-- CreateIndex
+CREATE INDEX "Exam_date_idx" ON "Exam"("date");
+
+-- CreateIndex
+CREATE INDEX "Result_examId_idx" ON "Result"("examId");
+
+-- CreateIndex
+CREATE INDEX "Result_studentId_idx" ON "Result"("studentId");
+
+-- CreateIndex
+CREATE INDEX "Result_teacherId_idx" ON "Result"("teacherId");
+
+-- CreateIndex
+CREATE INDEX "Result_subjectId_idx" ON "Result"("subjectId");
+
+-- CreateIndex
+CREATE INDEX "Result_date_idx" ON "Result"("date");
+
+-- CreateIndex
+CREATE INDEX "Assignment_subjectId_idx" ON "Assignment"("subjectId");
+
+-- CreateIndex
+CREATE INDEX "Assignment_classId_idx" ON "Assignment"("classId");
+
+-- CreateIndex
+CREATE INDEX "Assignment_teacherId_idx" ON "Assignment"("teacherId");
+
+-- CreateIndex
+CREATE INDEX "Assignment_dueDate_idx" ON "Assignment"("dueDate");
+
+-- CreateIndex
+CREATE INDEX "Announcement_classId_idx" ON "Announcement"("classId");
+
+-- CreateIndex
+CREATE INDEX "Announcement_date_idx" ON "Announcement"("date");
+
+-- CreateIndex
+CREATE INDEX "Event_classId_idx" ON "Event"("classId");
+
+-- CreateIndex
+CREATE INDEX "Event_date_idx" ON "Event"("date");
+
+-- CreateIndex
+CREATE INDEX "CalendarEvent_classId_idx" ON "CalendarEvent"("classId");
+
+-- CreateIndex
+CREATE INDEX "CalendarEvent_date_idx" ON "CalendarEvent"("date");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ParentToStudent_AB_unique" ON "_ParentToStudent"("A", "B");

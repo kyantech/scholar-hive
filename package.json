@@ -87,6 +87,7 @@
   "devDependencies": {
     "@commitlint/cli": "19.5.0",
     "@commitlint/config-conventional": "19.5.0",
+    "@faker-js/faker": "9.2.0",
     "@ianvs/prettier-plugin-sort-imports": "4.3.1",
     "@types/bcrypt": "5.0.2",
     "@types/bcryptjs": "2.4.6",

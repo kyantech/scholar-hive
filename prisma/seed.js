@@ -1,75 +1,79 @@
 const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
+const { faker } = require('@faker-js/faker/locale/pt_BR');
 
 const prisma = new PrismaClient();
 
 async function main() {
   const hashedPassword = await bcrypt.hash('password123', 10);
 
-  // Create admin user
+  // Admin user
   const adminUser = await prisma.user.upsert({
-    where: { email: 'admin@example.com' },
+    where: { email: 'admin@escola.com' },
     update: {},
     create: {
-      email: 'admin@example.com',
-      name: 'Admin User',
-      hashedPassword: hashedPassword,
+      email: 'admin@escola.com',
+      name: 'Administrador',
+      hashedPassword,
       role: 'admin',
+      bloodType: 'A_POSITIVE',
+      birthday: new Date('1980-01-01'),
+      sex: 'male',
     },
   });
 
-  // Create subjects
-  const subjects = await Promise.all([
-    prisma.subject.create({ data: { name: 'Math' } }),
-    prisma.subject.create({ data: { name: 'English' } }),
-    prisma.subject.create({ data: { name: 'Physics' } }),
-    prisma.subject.create({ data: { name: 'Biology' } }),
-    prisma.subject.create({ data: { name: 'History' } }),
-  ]);
-
-  // Create teachers
-  const teacherData = [
-    {
-      email: 'pedro.santos@school.com',
-      name: 'Pedro Santos',
-      phone: '1234567890',
-      address: 'Rua XV de Novembro, 1299 - Centro, Curitiba - PR, 80060-000',
-      firstName: 'Pedro',
-      lastName: 'Santos',
-      bloodType: 'A_POSITIVE',
-      subjects: [subjects[0].id, subjects[2].id], // Math and Physics
-    },
-    {
-      email: 'ana.silva@school.com',
-      name: 'Ana Paula Silva',
-      phone: '1234567891',
-      address: 'Av. Cândido de Abreu, 817 - Centro Cívico, Curitiba - PR, 80530-000',
-      firstName: 'Ana',
-      lastName: 'Silva',
-      bloodType: 'B_POSITIVE',
-      subjects: [subjects[1].id], // English
-    },
-    {
-      email: 'marcos.oliveira@school.com',
-      name: 'Marcos Oliveira',
-      phone: '1234567892',
-      address: 'Rua Mateus Leme, 4700 - São Lourenço, Curitiba - PR, 82130-000',
-      firstName: 'Marcos',
-      lastName: 'Oliveira',
-      bloodType: 'O_NEGATIVE',
-      subjects: [subjects[3].id], // Biology
-    },
-    {
-      email: 'carla.rodrigues@school.com',
-      name: 'Carla Rodrigues',
-      phone: '1234567893',
-      address: 'Rua Nilo Peçanha, 1552 - Bom Retiro, Curitiba - PR, 80520-000',
-      firstName: 'Carla',
-      lastName: 'Rodrigues',
-      bloodType: 'AB_POSITIVE',
-      subjects: [subjects[4].id], // History
-    },
+  // Subjects (15 matérias)
+  const subjectsData = [
+    'Matemática',
+    'Português',
+    'História',
+    'Geografia',
+    'Ciências',
+    'Física',
+    'Química',
+    'Biologia',
+    'Educação Física',
+    'Artes',
+    'Inglês',
+    'Espanhol',
+    'Filosofia',
+    'Sociologia',
+    'Literatura',
   ];
+
+  const subjects = await Promise.all(
+    subjectsData.map((name) =>
+      prisma.subject.create({
+        data: { name },
+      })
+    )
+  );
+
+  // Teachers (20 professores)
+  const teacherData = Array(20)
+    .fill(null)
+    .map(() => ({
+      email: faker.internet.email(),
+      name: faker.person.fullName(),
+      phone: faker.phone.number(),
+      address: faker.location.streetAddress(true),
+      bloodType: faker.helpers.arrayElement([
+        'A_POSITIVE',
+        'A_NEGATIVE',
+        'B_POSITIVE',
+        'B_NEGATIVE',
+        'AB_POSITIVE',
+        'AB_NEGATIVE',
+        'O_POSITIVE',
+        'O_NEGATIVE',
+      ]),
+      birthday: faker.date.between({ from: '1970-01-01', to: '1995-12-31' }),
+      sex: faker.helpers.arrayElement(['male', 'female']),
+      subjects: faker.helpers.arrayElements(
+        subjects.map((s) => s.id),
+        { min: 1, max: 3 }
+      ),
+    }));
 
   const teachers = await Promise.all(
     teacherData.map(async (teacher) => {
@@ -77,17 +81,18 @@ async function main() {
         data: {
           email: teacher.email,
           name: teacher.name,
-          hashedPassword: hashedPassword,
+          hashedPassword,
           phone: teacher.phone,
           address: teacher.address,
           role: 'teacher',
+          bloodType: teacher.bloodType,
+          birthday: teacher.birthday,
+          sex: teacher.sex,
           teacherDetails: {
             create: {
-              firstName: teacher.firstName,
-              lastName: teacher.lastName,
-              bloodType: teacher.bloodType,
-              birthday: new Date('1980-01-01'),
-              sex: 'male',
+              subjects: {
+                connect: teacher.subjects.map((id) => ({ id })),
+              },
             },
           },
         },
@@ -98,12 +103,20 @@ async function main() {
     })
   );
 
-  // Create classes
+  // Classes (12 turmas)
   const classesData = [
-    { name: '1A', grade: '1', capacity: 25 },
-    { name: '1B', grade: '1', capacity: 25 },
-    { name: '2A', grade: '2', capacity: 30 },
-    { name: '2B', grade: '2', capacity: 30 },
+    { name: '1º Ano A', grade: '1', capacity: 30 },
+    { name: '1º Ano B', grade: '1', capacity: 30 },
+    { name: '2º Ano A', grade: '2', capacity: 30 },
+    { name: '2º Ano B', grade: '2', capacity: 30 },
+    { name: '3º Ano A', grade: '3', capacity: 30 },
+    { name: '3º Ano B', grade: '3', capacity: 30 },
+    { name: '4º Ano A', grade: '4', capacity: 30 },
+    { name: '4º Ano B', grade: '4', capacity: 30 },
+    { name: '5º Ano A', grade: '5', capacity: 30 },
+    { name: '5º Ano B', grade: '5', capacity: 30 },
+    { name: '6º Ano A', grade: '6', capacity: 30 },
+    { name: '6º Ano B', grade: '6', capacity: 30 },
   ];
 
   const classes = await Promise.all(
@@ -112,46 +125,38 @@ async function main() {
         data: {
           ...classData,
           supervisorId: teachers[index % teachers.length].teacherDetails.id,
+          teachers: {
+            connect: faker.helpers.arrayElements(
+              teachers.map((t) => ({ id: t.teacherDetails.id })),
+              { min: 3, max: 6 }
+            ),
+          },
         },
       })
     )
   );
 
-  // Create students
-  const studentData = [
-    {
-      email: 'pedro.oliveira@school.com',
-      name: 'Pedro Oliveira',
-      firstName: 'Pedro',
-      lastName: 'Oliveira',
-      bloodType: 'O_POSITIVE',
-      classId: classes[0].id,
-    },
-    {
-      email: 'ana.santos@school.com',
-      name: 'Ana Clara Santos',
-      firstName: 'Ana',
-      lastName: 'Santos',
-      bloodType: 'A_NEGATIVE',
-      classId: classes[0].id,
-    },
-    {
-      email: 'miguel.costa@school.com',
-      name: 'Miguel Costa',
-      firstName: 'Miguel',
-      lastName: 'Costa',
-      bloodType: 'B_POSITIVE',
-      classId: classes[1].id,
-    },
-    {
-      email: 'julia.ferreira@school.com',
-      name: 'Julia Ferreira',
-      firstName: 'Julia',
-      lastName: 'Ferreira',
-      bloodType: 'AB_NEGATIVE',
-      classId: classes[1].id,
-    },
-  ];
+  // Students (50 alunos)
+  const studentData = Array(50)
+    .fill(null)
+    .map(() => ({
+      email: faker.internet.email(),
+      name: faker.person.fullName(),
+      bloodType: faker.helpers.arrayElement([
+        'A_POSITIVE',
+        'A_NEGATIVE',
+        'B_POSITIVE',
+        'B_NEGATIVE',
+        'AB_POSITIVE',
+        'AB_NEGATIVE',
+        'O_POSITIVE',
+        'O_NEGATIVE',
+      ]),
+      birthday: faker.date.between({ from: '2010-01-01', to: '2015-12-31' }),
+      sex: faker.helpers.arrayElement(['male', 'female']),
+      grade: faker.helpers.arrayElement(['1', '2', '3', '4', '5', '6']),
+      classId: faker.helpers.arrayElement(classes).id,
+    }));
 
   const students = await Promise.all(
     studentData.map(async (student) => {
@@ -159,16 +164,14 @@ async function main() {
         data: {
           email: student.email,
           name: student.name,
-          hashedPassword: hashedPassword,
+          hashedPassword,
           role: 'student',
+          bloodType: student.bloodType,
+          birthday: student.birthday,
+          sex: student.sex,
           studentDetails: {
             create: {
-              firstName: student.firstName,
-              lastName: student.lastName,
-              bloodType: student.bloodType,
-              birthday: new Date('2010-01-01'),
-              sex: 'male',
-              grade: '5',
+              grade: student.grade,
               classId: student.classId,
             },
           },
@@ -180,30 +183,28 @@ async function main() {
     })
   );
 
-  // Create parents
-  const parentData = [
-    {
-      email: 'roberto.silva@gmail.com',
-      name: 'Roberto Silva Santos',
-      firstName: 'Roberto',
-      lastName: 'Silva Santos',
-      students: [students[0], students[1]],
-    },
-    {
-      email: 'ana.oliveira@gmail.com',
-      name: 'Ana Paula Oliveira',
-      firstName: 'Ana Paula',
-      lastName: 'Oliveira',
-      students: [students[2]],
-    },
-    {
-      email: 'carlos.ferreira@gmail.com',
-      name: 'Carlos Eduardo Ferreira',
-      firstName: 'Carlos',
-      lastName: 'Ferreira',
-      students: [students[3]],
-    },
-  ];
+  // Parents (30 pais)
+  const parentData = Array(30)
+    .fill(null)
+    .map(() => ({
+      email: faker.internet.email(),
+      name: faker.person.fullName(),
+      phone: faker.phone.number(),
+      address: faker.location.streetAddress(true),
+      bloodType: faker.helpers.arrayElement([
+        'A_POSITIVE',
+        'A_NEGATIVE',
+        'B_POSITIVE',
+        'B_NEGATIVE',
+        'AB_POSITIVE',
+        'AB_NEGATIVE',
+        'O_POSITIVE',
+        'O_NEGATIVE',
+      ]),
+      birthday: faker.date.between({ from: '1970-01-01', to: '1990-12-31' }),
+      sex: faker.helpers.arrayElement(['male', 'female']),
+      students: faker.helpers.arrayElements(students, { min: 1, max: 3 }),
+    }));
 
   const parents = await Promise.all(
     parentData.map(async (parent) => {
@@ -211,12 +212,15 @@ async function main() {
         data: {
           email: parent.email,
           name: parent.name,
-          hashedPassword: hashedPassword,
+          hashedPassword,
+          phone: parent.phone,
+          address: parent.address,
           role: 'parent',
+          bloodType: parent.bloodType,
+          birthday: parent.birthday,
+          sex: parent.sex,
           parentDetails: {
             create: {
-              firstName: parent.firstName,
-              lastName: parent.lastName,
               students: {
                 connect: parent.students.map((student) => ({
                   id: student.studentDetails.id,
@@ -229,78 +233,124 @@ async function main() {
     })
   );
 
-  // Create exams
+  // Exams (30 provas)
+  const examData = Array(30)
+    .fill(null)
+    .map(() => ({
+      date: faker.date.future(),
+      subjectId: faker.helpers.arrayElement(subjects).id,
+      classId: faker.helpers.arrayElement(classes).id,
+      teacherId: faker.helpers.arrayElement(teachers).teacherDetails.id,
+    }));
+
   const exams = await Promise.all(
-    classes.map(async (class_, index) => {
-      return prisma.exam.create({
-        data: {
-          date: new Date('2025-01-01'),
-          subjectId: subjects[index % subjects.length].id,
-          classId: class_.id,
-          teacherId: teachers[index % teachers.length].teacherDetails.id,
-        },
-      });
-    })
+    examData.map((exam) =>
+      prisma.exam.create({
+        data: exam,
+      })
+    )
   );
 
-  // Create results for each student and exam
+  // Results (150 resultados)
   const results = await Promise.all(
-    students.flatMap((student) =>
-      exams.map((exam) =>
+    Array(150)
+      .fill(null)
+      .map(() =>
         prisma.result.create({
           data: {
-            score: Math.floor(Math.random() * 30) + 70, // Random score between 70-100
-            date: new Date('2025-01-01'),
-            type: 'exam',
-            examId: exam.id,
-            studentId: student.studentDetails.id,
-            teacherId: teachers[0].teacherDetails.id,
-            subjectId: subjects[0].id,
+            score: faker.number.int({ min: 0, max: 100 }),
+            date: faker.date.recent(),
+            type: faker.helpers.arrayElement(['exam', 'assignment']),
+            examId: faker.helpers.arrayElement(exams).id,
+            studentId: faker.helpers.arrayElement(students).studentDetails.id,
+            teacherId: faker.helpers.arrayElement(teachers).teacherDetails.id,
+            subjectId: faker.helpers.arrayElement(subjects).id,
           },
         })
       )
-    )
   );
 
-  // Create announcements
+  // Assignments (40 tarefas)
+  const assignments = await Promise.all(
+    Array(40)
+      .fill(null)
+      .map(() =>
+        prisma.assignment.create({
+          data: {
+            dueDate: faker.date.future(),
+            subjectId: faker.helpers.arrayElement(subjects).id,
+            classId: faker.helpers.arrayElement(classes).id,
+            teacherId: faker.helpers.arrayElement(teachers).teacherDetails.id,
+          },
+        })
+      )
+  );
+
+  // Announcements (25 anúncios)
   const announcements = await Promise.all(
-    classes.map((class_) =>
-      prisma.announcement.create({
-        data: {
-          title: `Important Announcement for ${class_.name}`,
-          description: `This is an important announcement for class ${class_.name}`,
-          date: new Date('2025-01-01'),
-          classId: class_.id,
-        },
-      })
-    )
+    Array(25)
+      .fill(null)
+      .map(() =>
+        prisma.announcement.create({
+          data: {
+            title: faker.lorem.sentence(),
+            description: faker.lorem.paragraphs(),
+            date: faker.date.recent(),
+            classId: faker.helpers.arrayElement(classes).id,
+          },
+        })
+      )
   );
 
-  // Create events
+  // Events (20 eventos)
   const events = await Promise.all(
-    classes.map((class_) =>
-      prisma.event.create({
-        data: {
-          title: `Special Event - ${class_.name}`,
-          date: new Date('2025-01-01'),
-          startTime: '10:00',
-          endTime: '11:00',
-          classId: class_.id,
-        },
+    Array(20)
+      .fill(null)
+      .map(() => {
+        const startHour = faker.number.int({ min: 8, max: 16 });
+        return prisma.event.create({
+          data: {
+            title: faker.lorem.words(3),
+            date: faker.date.future(),
+            startTime: `${startHour}:00`,
+            endTime: `${startHour + 2}:00`,
+            classId: faker.helpers.arrayElement(classes).id,
+          },
+        });
       })
-    )
+  );
+
+  // Calendar Events (15 eventos de calendário)
+  const calendarEvents = await Promise.all(
+    Array(15)
+      .fill(null)
+      .map(() => {
+        const startHour = faker.number.int({ min: 8, max: 16 });
+        return prisma.calendarEvent.create({
+          data: {
+            title: faker.lorem.words(3),
+            date: faker.date.future(),
+            startTime: `${startHour}:00`,
+            endTime: `${startHour + 2}:00`,
+            classId: faker.helpers.arrayElement(classes).id,
+          },
+        });
+      })
   );
 
   console.log({
-    adminUser,
+    adminUser: 1,
+    subjects: subjects.length,
     teachers: teachers.length,
     classes: classes.length,
     students: students.length,
     parents: parents.length,
     exams: exams.length,
     results: results.length,
+    assignments: assignments.length,
     announcements: announcements.length,
     events: events.length,
+    calendarEvents: calendarEvents.length,
   });
 }
 

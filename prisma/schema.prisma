@@ -32,34 +32,34 @@ enum Sex {
 }
 
 model User {
-  id             String   @id @default(cuid())
-  name           String?
-  email          String?  @unique
-  hashedPassword String?
-  image          String?
-  phone          String?
-  address        String?
-  role           UserRole @default(admin)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id             String    @id @default(cuid())
+  name           String    @db.VarChar(100)
+  email          String    @unique @db.VarChar(255)
+  hashedPassword String    @db.VarChar(255)
+  photo          String?   @map("image") @db.Text
+  phone          String?   @db.VarChar(50)
+  address        String?   @db.VarChar(255)
+  role           UserRole  @default(admin)
+  bloodType      BloodType
+  birthday       DateTime  @db.Date
+  sex            Sex
+  createdAt      DateTime  @default(now()) @db.Timestamp()
+  updatedAt      DateTime  @updatedAt @db.Timestamp()
 
   // Role-specific relations
   teacherDetails Teacher?
   studentDetails Student?
   parentDetails  Parent?
+
+  @@index([email])
 }
 
 model Teacher {
-  id        String    @id @default(cuid())
-  firstName String
-  lastName  String
-  bloodType BloodType
-  birthday  DateTime
-  sex       Sex
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String    @unique
+  id     String @id @default(cuid())
+  userId String @unique
 
   // Relations
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   subjects          Subject[]
   classes           Class[]
   supervisedClasses Class[]      @relation("ClassSupervisor")
@@ -67,48 +67,48 @@ model Teacher {
   assignments       Assignment[]
   results           Result[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([userId])
 }
 
 model Student {
-  id        String    @id @default(cuid())
-  firstName String
-  lastName  String
-  bloodType BloodType
-  birthday  DateTime
-  sex       Sex
-  grade     String
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String    @unique
+  id      String @id @default(cuid())
+  grade   String @db.VarChar(20)
+  userId  String @unique
+  classId String
 
   // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   class   Class    @relation(fields: [classId], references: [id])
-  classId String
   parents Parent[]
   results Result[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([userId])
+  @@index([classId])
 }
 
 model Parent {
-  id        String @id @default(cuid())
-  firstName String
-  lastName  String
-  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String @unique
+  id     String @id @default(cuid())
+  userId String @unique
 
   // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   students Student[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([userId])
 }
 
 model Subject {
   id   String @id @default(cuid())
-  name String @unique
+  name String @unique @db.VarChar(100)
 
   // Relations
   teachers    Teacher[]
@@ -116,124 +116,154 @@ model Subject {
   assignments Assignment[]
   results     Result[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([name])
 }
 
 model Class {
-  id       String @id @default(cuid())
-  name     String @unique
-  grade    String
-  capacity Int
+  id           String @id @default(cuid())
+  name         String @unique @db.VarChar(50)
+  grade        String @db.VarChar(20)
+  capacity     Int    @default(30)
+  supervisorId String
 
   // Relations
-  students      Student[]
-  teachers      Teacher[]
-  supervisor    Teacher        @relation("ClassSupervisor", fields: [supervisorId], references: [id])
-  supervisorId  String
-  exams         Exam[]
-  assignments   Assignment[]
-  announcements Announcement[]
-  events        Event[]
+  students       Student[]
+  teachers       Teacher[]
+  supervisor     Teacher         @relation("ClassSupervisor", fields: [supervisorId], references: [id])
+  exams          Exam[]
+  assignments    Assignment[]
+  announcements  Announcement[]
+  events         Event[]
+  calendarEvents CalendarEvent[]
 
-  createdAt     DateTime        @default(now())
-  updatedAt     DateTime        @updatedAt
-  CalendarEvent CalendarEvent[]
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([name])
+  @@index([supervisorId])
 }
 
 model Exam {
-  id   String   @id @default(cuid())
-  date DateTime
+  id        String   @id @default(cuid())
+  date      DateTime @db.Timestamp()
+  subjectId String
+  classId   String
+  teacherId String
 
   // Relations
-  subject   Subject  @relation(fields: [subjectId], references: [id])
-  subjectId String
-  class     Class    @relation(fields: [classId], references: [id])
-  classId   String
-  teacher   Teacher  @relation(fields: [teacherId], references: [id])
-  teacherId String
-  results   Result[]
+  subject Subject  @relation(fields: [subjectId], references: [id])
+  class   Class    @relation(fields: [classId], references: [id])
+  teacher Teacher  @relation(fields: [teacherId], references: [id])
+  results Result[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([subjectId])
+  @@index([classId])
+  @@index([teacherId])
+  @@index([date])
 }
 
 model Result {
-  id    String   @id @default(cuid())
-  score Int
-  date  DateTime
-  type  String // 'exam' or 'assignment'
-
-  // Relations
-  exam      Exam    @relation(fields: [examId], references: [id])
+  id        String   @id @default(cuid())
+  score     Int      @db.SmallInt
+  date      DateTime @db.Timestamp()
+  type      String   @db.VarChar(20) // 'exam' or 'assignment'
   examId    String
-  student   Student @relation(fields: [studentId], references: [id])
   studentId String
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId String
-  subject   Subject @relation(fields: [subjectId], references: [id])
   subjectId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Relations
+  exam    Exam    @relation(fields: [examId], references: [id])
+  student Student @relation(fields: [studentId], references: [id])
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+  subject Subject @relation(fields: [subjectId], references: [id])
+
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([examId])
+  @@index([studentId])
+  @@index([teacherId])
+  @@index([subjectId])
+  @@index([date])
 }
 
 model Assignment {
-  id      String   @id @default(cuid())
-  dueDate DateTime
-
-  // Relations
-  subject   Subject @relation(fields: [subjectId], references: [id])
+  id        String   @id @default(cuid())
+  dueDate   DateTime @db.Timestamp()
   subjectId String
-  class     Class   @relation(fields: [classId], references: [id])
   classId   String
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
   teacherId String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  // Relations
+  subject Subject @relation(fields: [subjectId], references: [id])
+  class   Class   @relation(fields: [classId], references: [id])
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([subjectId])
+  @@index([classId])
+  @@index([teacherId])
+  @@index([dueDate])
 }
 
 model Announcement {
   id          String   @id @default(cuid())
-  title       String
-  description String
-  date        DateTime
+  title       String   @db.VarChar(200)
+  description String   @db.Text
+  date        DateTime @db.Timestamp()
+  classId     String
 
   // Relations
-  class   Class  @relation(fields: [classId], references: [id])
-  classId String
+  class Class @relation(fields: [classId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([classId])
+  @@index([date])
 }
 
 model Event {
   id        String   @id @default(cuid())
-  title     String
-  date      DateTime
-  startTime String
-  endTime   String
+  title     String   @db.VarChar(200)
+  date      DateTime @db.Date
+  startTime String   @db.VarChar(20)
+  endTime   String   @db.VarChar(20)
+  classId   String
 
   // Relations
-  class   Class  @relation(fields: [classId], references: [id])
-  classId String
+  class Class @relation(fields: [classId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([classId])
+  @@index([date])
 }
 
 model CalendarEvent {
   id        String   @id @default(cuid())
-  title     String
-  date      DateTime
-  startTime String
-  endTime   String
+  title     String   @db.VarChar(200)
+  date      DateTime @db.Date
+  startTime String   @db.VarChar(20)
+  endTime   String   @db.VarChar(20)
+  classId   String
 
   // Relations
-  class   Class  @relation(fields: [classId], references: [id])
-  classId String
+  class Class @relation(fields: [classId], references: [id])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now()) @db.Timestamp()
+  updatedAt DateTime @updatedAt @db.Timestamp()
+
+  @@index([classId])
+  @@index([date])
 }
