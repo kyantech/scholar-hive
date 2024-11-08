@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ImageUp } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 import { FormModal } from '@/components/form-modal';
@@ -12,12 +12,18 @@ import MultipleSelector from '@/components/multi-select';
 import { Label } from '@/components/ui/label';
 import { studentsData } from '@/lib/data';
 import { parentSchema } from '../schemas/schema';
+import { Parent } from './types';
 
 import type { ParentFormInputs } from '../schemas/schema';
 
-export function ParentModal() {
+interface ParentModalProps {
+  parent?: Parent | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+
+export function ParentModal({ parent, open, onOpenChange }: ParentModalProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
 
   const {
     register,
@@ -33,25 +39,73 @@ export function ParentModal() {
 
   const selectedFile = watch('img');
 
-  const handleModalClose = (open: boolean) => {
-    if (!open) {
-      reset();
-      setPreviewUrl(null);
-      setValue('students', []);
-    }
-    setIsOpen(open);
+  const populateParentFields = useCallback(
+    (parentData: Parent) => {
+      const parentFields: Partial<ParentFormInputs> = {
+        email: parentData.email,
+        password: parentData.password,
+        name: parentData.name,
+        phone: parentData.phone,
+        address: parentData.address,
+        students: parentData.students.map((student) => ({
+          value: student.id,
+          label: student.name,
+        })),
+      };
+
+      Object.entries(parentFields).forEach(([field, value]) => {
+        setValue(field as keyof ParentFormInputs, value);
+      });
+
+      setPreviewUrl(parentData.photo);
+    },
+    [setValue]
+  );
+
+  const handleFilePreview = (file: File) => {
+    const fileUrl = URL.createObjectURL(file);
+    setPreviewUrl(fileUrl);
+    return () => URL.revokeObjectURL(fileUrl);
   };
 
   useEffect(() => {
-    if (!selectedFile?.[0] || !(selectedFile[0] instanceof File)) return;
+    if (!parent) return;
+    populateParentFields(parent);
+  }, [parent, populateParentFields]);
 
-    const fileUrl = URL.createObjectURL(selectedFile[0]);
-    setPreviewUrl(fileUrl);
-    return () => URL.revokeObjectURL(fileUrl);
+  useEffect(() => {
+    if (!selectedFile?.[0] || !(selectedFile[0] instanceof File)) return;
+    return handleFilePreview(selectedFile[0]);
   }, [selectedFile]);
 
+  const resetForm = () => {
+    reset();
+    setPreviewUrl(null);
+  };
+
+  const handleModalClose = (isOpen: boolean) => {
+    if (!isOpen) {
+      resetForm();
+    }
+    onOpenChange(isOpen);
+  };
+
   const handleFormSubmit = handleSubmit((data) => {
-    console.log('Form submitted with data:', data);
+    const formData = {
+      id: parent?.id,
+      email: data.email,
+      password: data.password,
+      name: data.name,
+      phone: data.phone,
+      address: data.address,
+      students: data.students.map((student) => ({
+        id: student.value,
+        name: student.label,
+      })),
+      photo: previewUrl || '',
+    };
+
+    console.log(`${parent ? 'Updating' : 'Creating'} parent with data:`, formData);
     handleModalClose(false);
   });
 
@@ -83,8 +137,7 @@ export function ParentModal() {
   const renderAuthenticationFields = () => (
     <>
       <span className="text-sm text-muted-foreground font-medium mb-1">Authentication Information</span>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <InputField label="Username" name="username" register={register} error={errors?.username} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <InputField label="Email" name="email" register={register} error={errors?.email} />
         <InputField label="Password" name="password" type="password" register={register} error={errors?.password} />
       </div>
@@ -102,13 +155,12 @@ export function ParentModal() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {renderProfilePhotoUpload()}
         <div className="md:flex md:items-center">
-          <InputField label="First Name" name="firstName" register={register} error={errors.firstName} />
+          <InputField label="Name" name="name" register={register} error={errors.name} />
         </div>
         <div className="md:flex md:items-center">
-          <InputField label="Last Name" name="lastName" register={register} error={errors.lastName} />
+          <InputField label="Phone" name="phone" register={register} error={errors.phone} />
         </div>
-        <InputField label="Phone" name="phone" register={register} error={errors.phone} />
-        <div className="md:col-span-2">
+        <div className="md:col-span-3">
           <InputField label="Address" name="address" register={register} error={errors.address} />
         </div>
       </div>
@@ -141,18 +193,18 @@ export function ParentModal() {
 
   return (
     <FormModal
-      title="Add a new parent"
+      title={parent ? 'Edit parent' : 'Add a new parent'}
       actionLabel="Confirm"
       cancelLabel="Cancel"
-      description="Fill the form to add a new parent"
+      description={parent ? 'Edit parent information' : 'Fill the form to add a new parent'}
       onAction={handleFormSubmit}
-      open={isOpen}
+      open={open}
       onOpenChange={handleModalClose}
     >
       <form className="flex flex-col gap-2">
-        {renderAuthenticationFields()}
         {renderPersonalInformationFields()}
         {renderStudentsInformationFields()}
+        {renderAuthenticationFields()}
       </form>
     </FormModal>
   );

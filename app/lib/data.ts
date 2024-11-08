@@ -356,7 +356,8 @@ export const parentsData = [
     email: 'roberto.silva@gmail.com',
     phone: '1234567890',
     address: 'Rua Marechal Deodoro, 630 - Centro, Curitiba - PR, 80010-010',
-    photo: '',
+    photo: 'https://i.pinimg.com/474x/03/19/8d/03198defbf9905613bedbbdd2323228d.jpg',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0012qwer1234578',
@@ -366,6 +367,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Av. Sete de Setembro, 4698 - Batel, Curitiba - PR, 80240-000',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0013qwer1234579',
@@ -375,6 +377,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Rua Padre Agostinho, 2885 - Bigorrilho, Curitiba - PR, 80710-000',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0014qwer1234580',
@@ -387,6 +390,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Av. República Argentina, 1228 - Água Verde, Curitiba - PR, 80620-010',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0015qwer1234581',
@@ -396,6 +400,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Rua Bispo Dom José, 2495 - Batel, Curitiba - PR, 80440-080',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0016qwer1234582',
@@ -405,6 +410,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Av. Silva Jardim, 567 - Rebouças, Curitiba - PR, 80230-000',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0017qwer1234583',
@@ -417,6 +423,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Rua Nilo Peçanha, 1552 - São Francisco, Curitiba - PR, 80520-000',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0018qwer1234584',
@@ -426,6 +433,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Rua Tibagi, 294 - Centro, Curitiba - PR, 80060-110',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0019qwer1234585',
@@ -438,6 +446,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Rua Mateus Leme, 1908 - Centro Cívico, Curitiba - PR, 80530-010',
     photo: '',
+    password: 'password123',
   },
   {
     id: 'clh1u2xkg0020qwer1234586',
@@ -447,6 +456,7 @@ export const parentsData = [
     phone: '1234567890',
     address: 'Av. Manoel Ribas, 4255 - Santa Felicidade, Curitiba - PR, 82025-160',
     photo: '',
+    password: 'password123',
   },
 ];
 
@@ -639,8 +649,14 @@ export const classesData = [
 export const lessonsData = [
   {
     id: 'clh1u2xkg0041qwer1234607',
-    subject: 'Math',
-    class: '1A',
+    subject: {
+      id: 'clh1u2xkg0021qwer1234587',
+      name: 'Math',
+    },
+    class: {
+      id: 'clh1u2xkg0000qwer1234567',
+      name: '1A',
+    },
     teacher: {
       id: 'clh1u2xkg0031qwer1234597',
       name: 'Tommy Wise',
@@ -648,8 +664,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0042qwer1234608',
-    subject: 'English',
-    class: '2A',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'English',
+    },
+    class: {
+      id: 'clh1u2xkg0001qwer1234568',
+      name: '2B',
+    },
     teacher: {
       id: 'clh1u2xkg0032qwer1234598',
       name: 'Rhoda Frank',
@@ -657,8 +679,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0043qwer1234609',
-    subject: 'Science',
-    class: '3A',
+    subject: {
+      id: 'clh1u2xkg0025qwer1234591',
+      name: 'Biology',
+    },
+    class: {
+      id: 'clh1u2xkg0002qwer1234569',
+      name: '3C',
+    },
     teacher: {
       id: 'clh1u2xkg0033qwer1234599',
       name: 'Della Dunn',
@@ -666,8 +694,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0044qwer1234610',
-    subject: 'Social Studies',
-    class: '1B',
+    subject: {
+      id: 'clh1u2xkg0026qwer1234592',
+      name: 'History',
+    },
+    class: {
+      id: 'clh1u2xkg0003qwer1234570',
+      name: '4B',
+    },
     teacher: {
       id: 'clh1u2xkg0034qwer1234600',
       name: 'Bruce Rodriguez',
@@ -675,8 +709,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0045qwer1234611',
-    subject: 'Art',
-    class: '4A',
+    subject: {
+      id: 'clh1u2xkg0027qwer1234593',
+      name: 'Music',
+    },
+    class: {
+      id: 'clh1u2xkg0004qwer1234571',
+      name: '5A',
+    },
     teacher: {
       id: 'clh1u2xkg0035qwer1234601',
       name: 'Birdie Butler',
@@ -684,8 +724,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0046qwer1234612',
-    subject: 'Music',
-    class: '5A',
+    subject: {
+      id: 'clh1u2xkg0023qwer1234589',
+      name: 'Physics',
+    },
+    class: {
+      id: 'clh1u2xkg0005qwer1234572',
+      name: '5B',
+    },
     teacher: {
       id: 'clh1u2xkg0036qwer1234602',
       name: 'Bettie Oliver',
@@ -693,8 +739,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0047qwer1234613',
-    subject: 'History',
-    class: '6A',
+    subject: {
+      id: 'clh1u2xkg0024qwer1234590',
+      name: 'Chemistry',
+    },
+    class: {
+      id: 'clh1u2xkg0006qwer1234573',
+      name: '7A',
+    },
     teacher: {
       id: 'clh1u2xkg0037qwer1234603',
       name: 'Herman Howard',
@@ -702,8 +754,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0048qwer1234614',
-    subject: 'Geography',
-    class: '6B',
+    subject: {
+      id: 'clh1u2xkg0028qwer1234594',
+      name: 'English',
+    },
+    class: {
+      id: 'clh1u2xkg0007qwer1234574',
+      name: '6B',
+    },
     teacher: {
       id: 'clh1u2xkg0038qwer1234604',
       name: 'Lucinda Thomas',
@@ -711,8 +769,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0049qwer1234615',
-    subject: 'Physics',
-    class: '6C',
+    subject: {
+      id: 'clh1u2xkg0023qwer1234589',
+      name: 'Physics',
+    },
+    class: {
+      id: 'clh1u2xkg0008qwer1234575',
+      name: '6C',
+    },
     teacher: {
       id: 'clh1u2xkg0039qwer1234605',
       name: 'Ronald Roberts',
@@ -720,8 +784,14 @@ export const lessonsData = [
   },
   {
     id: 'clh1u2xkg0050qwer1234616',
-    subject: 'Chemistry',
-    class: '4B',
+    subject: {
+      id: 'clh1u2xkg0024qwer1234590',
+      name: 'Chemistry',
+    },
+    class: {
+      id: 'clh1u2xkg0009qwer1234576',
+      name: '6D',
+    },
     teacher: {
       id: 'clh1u2xkg0040qwer1234606',
       name: 'Julia Pittman',

@@ -9,4 +9,5 @@ export interface Parent {
   phone: string;
   address: string;
   photo: string;
+  password: string;
 }

@@ -18,8 +18,8 @@ const handleDelete = (lessonId: string) => {
 };
 
 const COLUMNS = [
-  { key: 'subject', label: 'Subject' },
-  { key: 'class', label: 'Class' },
+  { key: 'subject', label: 'Subject', render: (lesson: Lesson) => lesson.subject.name },
+  { key: 'class', label: 'Class', render: (lesson: Lesson) => lesson.class.name },
   {
     key: 'teacher',
     label: 'Teacher',
