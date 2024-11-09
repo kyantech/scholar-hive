@@ -35,7 +35,7 @@
 | GET | `/api/teachers/:id` | Get teacher details |
 | PATCH | `/api/teachers/:id` | Update teacher |
 | DELETE | `/api/teachers/:id` | Delete teacher |
-| GET | `/api/teachers/:id/subjects` | Get teacher's subjects |
+| GET | `/api/teachers/:id/subjects` | Get teacher's subjects **Not implemented** |
 
 ### Students
 
@@ -46,7 +46,7 @@
 | GET | `/api/students/:id` | Get student details |
 | PATCH | `/api/students/:id` | Update student |
 | DELETE | `/api/students/:id` | Delete student |
-| GET | `/api/students/:id/results` | Get student's results |
+| GET | `/api/students/:id/results` | Get student's results **Not implemented**|
 
 ### Classes
 

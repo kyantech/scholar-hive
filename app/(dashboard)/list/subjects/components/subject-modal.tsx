@@ -43,7 +43,8 @@ export function SubjectModal() {
     setIsOpen(open);
   };
 
-  const mapSelectedTeachers = (teacherIds: string[]) => {
+  const mapSelectedTeachers = (teacherIds: string[] | undefined) => {
+    if (!teacherIds) return [];
     return teachersData.filter((teacher) => teacherIds.includes(teacher.id)).map(({ id, name }) => ({ id, name }));
   };
 
